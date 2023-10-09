@@ -1,0 +1,51 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34031.279
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{CF7DA8BB-D409-430B-B8CA-3A187555022E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{AE809A78-AACF-4045-80AD-CE543534C065}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{4681D5CF-7A6C-48DF-A307-FF91B5C78BE0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{4414BC6E-6CF6-4140-9686-ACB8E874A2F0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{60BE3285-131F-4BAA-B2F9-3993A06FF2BB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{248E4707-8A46-423D-8288-046201128BCD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MealPath.OrderManagement.Domain", "MealPath.OrderManagement.Domain\MealPath.OrderManagement.Domain.csproj", "{0C9EFB74-B0AE-4C91-9F86-0045E460BD2D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MealPath.OrderManagement.Application", "MealPath.OrderManagement.Application\MealPath.OrderManagement.Application.csproj", "{E1C84E61-0E41-4A5F-A29D-762D56BEB358}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0C9EFB74-B0AE-4C91-9F86-0045E460BD2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C9EFB74-B0AE-4C91-9F86-0045E460BD2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C9EFB74-B0AE-4C91-9F86-0045E460BD2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C9EFB74-B0AE-4C91-9F86-0045E460BD2D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1C84E61-0E41-4A5F-A29D-762D56BEB358}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1C84E61-0E41-4A5F-A29D-762D56BEB358}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1C84E61-0E41-4A5F-A29D-762D56BEB358}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1C84E61-0E41-4A5F-A29D-762D56BEB358}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4681D5CF-7A6C-48DF-A307-FF91B5C78BE0} = {CF7DA8BB-D409-430B-B8CA-3A187555022E}
+		{4414BC6E-6CF6-4140-9686-ACB8E874A2F0} = {CF7DA8BB-D409-430B-B8CA-3A187555022E}
+		{60BE3285-131F-4BAA-B2F9-3993A06FF2BB} = {CF7DA8BB-D409-430B-B8CA-3A187555022E}
+		{248E4707-8A46-423D-8288-046201128BCD} = {CF7DA8BB-D409-430B-B8CA-3A187555022E}
+		{0C9EFB74-B0AE-4C91-9F86-0045E460BD2D} = {4681D5CF-7A6C-48DF-A307-FF91B5C78BE0}
+		{E1C84E61-0E41-4A5F-A29D-762D56BEB358} = {4681D5CF-7A6C-48DF-A307-FF91B5C78BE0}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {56215AC1-686E-4A04-B4B1-C3F9EDB90635}
+	EndGlobalSection
+EndGlobal
