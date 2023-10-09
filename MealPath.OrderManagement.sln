@@ -15,9 +15,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{60BE3285-131F-
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{248E4707-8A46-423D-8288-046201128BCD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MealPath.OrderManagement.Domain", "MealPath.OrderManagement.Domain\MealPath.OrderManagement.Domain.csproj", "{0C9EFB74-B0AE-4C91-9F86-0045E460BD2D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MealPath.OrderManagement.Domain", "MealPath.OrderManagement.Domain\MealPath.OrderManagement.Domain.csproj", "{0C9EFB74-B0AE-4C91-9F86-0045E460BD2D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MealPath.OrderManagement.Application", "MealPath.OrderManagement.Application\MealPath.OrderManagement.Application.csproj", "{E1C84E61-0E41-4A5F-A29D-762D56BEB358}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MealPath.OrderManagement.Application", "MealPath.OrderManagement.Application\MealPath.OrderManagement.Application.csproj", "{E1C84E61-0E41-4A5F-A29D-762D56BEB358}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MealPath.OrderManagement.Api", "MealPath.OrderManagement.Api\MealPath.OrderManagement.Api.csproj", "{B105FF76-B774-48E0-BC4C-F974A30F72D7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{E1C84E61-0E41-4A5F-A29D-762D56BEB358}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E1C84E61-0E41-4A5F-A29D-762D56BEB358}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E1C84E61-0E41-4A5F-A29D-762D56BEB358}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B105FF76-B774-48E0-BC4C-F974A30F72D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B105FF76-B774-48E0-BC4C-F974A30F72D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B105FF76-B774-48E0-BC4C-F974A30F72D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B105FF76-B774-48E0-BC4C-F974A30F72D7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -44,6 +50,7 @@ Global
 		{248E4707-8A46-423D-8288-046201128BCD} = {CF7DA8BB-D409-430B-B8CA-3A187555022E}
 		{0C9EFB74-B0AE-4C91-9F86-0045E460BD2D} = {4681D5CF-7A6C-48DF-A307-FF91B5C78BE0}
 		{E1C84E61-0E41-4A5F-A29D-762D56BEB358} = {4681D5CF-7A6C-48DF-A307-FF91B5C78BE0}
+		{B105FF76-B774-48E0-BC4C-F974A30F72D7} = {4414BC6E-6CF6-4140-9686-ACB8E874A2F0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {56215AC1-686E-4A04-B4B1-C3F9EDB90635}
