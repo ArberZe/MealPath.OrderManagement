@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <ProjectReference Include="..\MealPath.OrderManagement.Application\MealPath.OrderManagement.Application.csproj" />
   </ItemGroup>
 
 </Project>
