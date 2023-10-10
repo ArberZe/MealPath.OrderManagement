@@ -1,7 +1,7 @@
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace StockManagement.Api.Utility
+namespace MealPath.OrderManagement.Api.Utility
 {
     public class FileResultContentTypeOperationFilter : IOperationFilter
     {

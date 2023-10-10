@@ -1,8 +1,7 @@
 using MealPath.OrderManagement.Application.Contracts.Persistence;
-using MealPath.OrderManagement.Persistence;
 using Microsoft.EntityFrameworkCore;
 
-namespace StockManagement.Persistence.Repositories;
+namespace MealPath.OrderManagement.Persistence.Repositories;
 
 public class BaseRepository<T>: IAsyncRepository<T> where T : class
 {

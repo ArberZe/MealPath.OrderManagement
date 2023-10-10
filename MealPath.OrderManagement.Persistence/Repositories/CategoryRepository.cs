@@ -3,7 +3,7 @@ using MealPath.OrderManagement.Domain.Entities;
 using MealPath.OrderManagement.Persistence;
 using Microsoft.EntityFrameworkCore;
 
-namespace StockManagement.Persistence.Repositories
+namespace MealPath.OrderManagement.Persistence.Repositories
 {
     public class CategoryRepository : BaseRepository<Category>, ICategoryRepository
     {

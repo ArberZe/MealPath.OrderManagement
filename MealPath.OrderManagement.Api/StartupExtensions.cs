@@ -1,4 +1,7 @@
-﻿using MealPath.OrderManagement.Application;
+﻿using MealPath.OrderManagement.Api.Utility;
+using MealPath.OrderManagement.Application;
+using MealPath.OrderManagement.Persistence;
+using Microsoft.EntityFrameworkCore;
 //using MealPath.OrderManagement.Infrastructure;
 //using MealPath.OrderManagement.Persistence;
 //using Microsoft.EntityFrameworkCore;
@@ -7,8 +10,6 @@ using Microsoft.OpenApi.Models;
 //using Serilog;
 //using MealPath.OrderManagement.Identity;
 //using MealPath.OrderManagement.Api.Middleware;
-using Microsoft.AspNetCore.Hosting;
-using StockManagement.Api.Utility;
 
 namespace MealPath.OrderManagement.Api
 {
@@ -21,7 +22,7 @@ namespace MealPath.OrderManagement.Api
 
             builder.Services.AddApplicationServices();
             //builder.Services.AddInfrastructureServices(builder.Configuration);
-            //builder.Services.AddPersistenceServices(builder.Configuration);
+            builder.Services.AddPersistenceServices(builder.Configuration);
             //builder.Services.AddIdentityServices(builder.Configuration);
 
             builder.Services.AddControllers();
@@ -118,12 +119,12 @@ namespace MealPath.OrderManagement.Api
         //    });
         //}
 
-        /*public static async Task ResetDatabaseAsync(this WebApplication app)
+        public static async Task ResetDatabaseAsync(this WebApplication app)
         {
             using var scope = app.Services.CreateScope();
             try
             {
-                var context = scope.ServiceProvider.GetService<StockManagementDbContext>();
+                var context = scope.ServiceProvider.GetService<MealPathDbContext>();
                 if (context != null)
                 {
                     await context.Database.EnsureDeletedAsync();
@@ -135,6 +136,6 @@ namespace MealPath.OrderManagement.Api
                 var logger = scope.ServiceProvider.GetRequiredService<ILogger>();
                 logger.LogError(ex, "An error occurred while migrating the database.");
             }
-        }*/
+        }
     }
 }

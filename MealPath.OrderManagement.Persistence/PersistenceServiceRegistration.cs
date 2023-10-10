@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using StockManagement.Persistence.Repositories;
+using MealPath.OrderManagement.Persistence.Repositories;
 
 namespace MealPath.OrderManagement.Persistence
 {
@@ -10,14 +10,14 @@ namespace MealPath.OrderManagement.Persistence
     {
         public static IServiceCollection AddPersistenceServices(this IServiceCollection services, IConfiguration configuration)
         {
-            //services.AddDbContext<StockManagementDbContext>(options =>
-            //    {
-            //        options.UseSqlServer(configuration["ConnectionStrings:DefaultConnection"]);
-            //    }
-            //);
-
             services.AddDbContext<MealPathDbContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+                {
+                    options.UseSqlServer(configuration["ConnectionStrings:DefaultConnection"]);
+                }
+            );
+
+            //services.AddDbContext<MealPathDbContext>(options =>
+            //    options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
             services.AddScoped(typeof(IAsyncRepository<>), typeof(BaseRepository<>));
 

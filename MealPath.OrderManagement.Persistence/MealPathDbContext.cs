@@ -1,4 +1,5 @@
-﻿using MealPath.OrderManagement.Domain.Entities;
+﻿using MealPath.OrderManagement.Domain.Common;
+using MealPath.OrderManagement.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace MealPath.OrderManagement.Persistence
@@ -27,5 +28,21 @@ namespace MealPath.OrderManagement.Persistence
                 Name = "Pije"
             });
         }
-    }
+
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
+        {
+            foreach (var entry in ChangeTracker.Entries<AuditableEntity>())
+            {
+                switch (entry.State)
+                {
+                    case EntityState.Added:
+                        entry.Entity.CreatedDate = DateTime.Now;
+                        break;
+                    case EntityState.Modified:
+                        entry.Entity.LastModifiedDate = DateTime.Now;
+                        break;
+                }
+            }
+            return base.SaveChangesAsync(cancellationToken);
+        }}
 }

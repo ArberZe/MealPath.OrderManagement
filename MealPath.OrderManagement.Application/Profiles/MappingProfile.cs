@@ -11,8 +11,8 @@ namespace MealPath.OrderManagement.Application.Profiles
         public MappingProfile()
         {
             CreateMap<CategoryDetailsVm, Category>();
-            CreateMap<CategoryListVm, Category>();
             CreateMap<Category, CreateCategoryDto>();
+            CreateMap<Category, CategoryListVm>();
         }
     }
 }

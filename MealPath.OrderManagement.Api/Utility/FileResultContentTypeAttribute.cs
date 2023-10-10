@@ -1,4 +1,4 @@
-namespace StockManagement.Api.Utility
+namespace MealPath.OrderManagement.Api.Utility
 {
     [AttributeUsage(AttributeTargets.Method)]
     public class FileResultContentTypeAttribute : Attribute
