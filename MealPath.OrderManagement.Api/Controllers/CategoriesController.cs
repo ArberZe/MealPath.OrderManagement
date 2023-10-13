@@ -3,6 +3,7 @@ using MealPath.OrderManagement.Application.Features.Categories.Queries.GetCatego
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using MealPath.OrderManagement.Application.Features.Categories.Queries.GetCategoryDetails;
 
 namespace MealPath.OrderManagement.Api.Controllers
 {
@@ -24,6 +25,14 @@ namespace MealPath.OrderManagement.Api.Controllers
         {
             var dtos = await _mediator.Send(new GetCategoriesListQuery());
             return Ok(dtos);
+        }
+
+        [AllowAnonymous]
+        [HttpGet("{id}", Name = "GetCategoryById")]
+        public async Task<ActionResult<GetCategoryDetailsQueryResponse>> GetProductById(int id)
+        {
+            var response = await _mediator.Send(new GetCategoryDetailsQuery() { CategoryId = id }); 
+            return Ok(response);
         }
 
         [HttpPost(Name = "AddCategory")]
