@@ -7,11 +7,8 @@ import CategoryDashboard from '../app/features/Categories/dashboard/CategoryDash
 
 function App() {
   const [categories, setCategories] = useState<Category[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState<Category | undefined>(undefined);
   const [editMode, setEditMode] = useState(false);
-
-  function handleFormOpen(id?: string){
-
-  }
   
   useEffect(() => {
     axios.get<Category[]>('https://localhost:7155/api/category/all').then(response => {
@@ -20,12 +17,36 @@ function App() {
     })
   }, [])
 
+  function handleSelectCategory(id: number){
+    setSelectedCategory(categories.find(x => x.categoryId === id));
+  }
+
+  function handleCancelSelectedCategory(){
+    setSelectedCategory(undefined);
+  }
+
+  function handleFormOpen(id?: number){
+    id? handleSelectCategory(id) : handleCancelSelectedCategory();
+    setEditMode(true);
+  }
+
+  function handleFormClose(){
+    setEditMode(false);
+  }
 
   return (
     <div>
-      <Navbar />
+      <Navbar openForm={handleFormOpen} />
       <Container style={{marginTop:'7em'}}>
-        <CategoryDashboard categories={categories} />
+        <CategoryDashboard 
+          categories={categories} 
+          selectedCategory = {selectedCategory}
+          selectCategory={handleSelectCategory}
+          cancelSelectedCategory= {handleCancelSelectedCategory}
+          editMode={editMode}
+          openForm={handleFormOpen}
+          closeForm={handleFormClose}
+        />
       </Container>
                 
     </div>
