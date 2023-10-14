@@ -4,6 +4,7 @@ import { Grid } from "semantic-ui-react";
 import CategoryList from "./CategoryList";
 import CategoryForm from "../form/CategoryForm";
 import CategoryDetails from "../details/CategoryDetails";
+import { create } from "domain";
 
 interface Props{
     categories: Category[];
@@ -13,10 +14,11 @@ interface Props{
     editMode : boolean;
     openForm : (id: number) => void;
     closeForm : () => void; 
+    createOrEdit: (category: Category) => void;
 }
 
 export default function CategoryDashboard({categories, selectedCategory, 
-    selectCategory, cancelSelectedCategory, editMode, openForm, closeForm}: Props){
+    selectCategory, cancelSelectedCategory, editMode, openForm, closeForm, createOrEdit}: Props){
     return(
         <Grid>
             <Grid.Column width='10'>
@@ -30,7 +32,7 @@ export default function CategoryDashboard({categories, selectedCategory,
                     openForm={openForm}
                  />}
                 {editMode && 
-                    <CategoryForm category={selectedCategory} closeForm={closeForm}/>
+                    <CategoryForm category={selectedCategory} closeForm={closeForm} createOrEdit={createOrEdit} />
                 }
             </Grid.Column>
         </Grid>

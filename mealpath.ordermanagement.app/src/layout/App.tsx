@@ -34,6 +34,14 @@ function App() {
     setEditMode(false);
   }
 
+  function handleCreateOrEditCategory(category: Category){
+    category.categoryId
+    ? setCategories([...categories.filter(x => x.categoryId !== category.categoryId), category])
+    : setCategories([...categories, category]);
+    setEditMode(false);
+    setSelectedCategory(category);
+  }
+
   return (
     <div>
       <Navbar openForm={handleFormOpen} />
@@ -46,6 +54,7 @@ function App() {
           editMode={editMode}
           openForm={handleFormOpen}
           closeForm={handleFormClose}
+          createOrEdit={handleCreateOrEditCategory}
         />
       </Container>
                 
