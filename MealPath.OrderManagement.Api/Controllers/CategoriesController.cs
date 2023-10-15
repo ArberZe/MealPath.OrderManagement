@@ -4,6 +4,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using MealPath.OrderManagement.Application.Features.Categories.Queries.GetCategoryDetails;
+using MealPath.OrderManagement.Application.Features.Categories.Commands.UpdateCategory;
 
 namespace MealPath.OrderManagement.Api.Controllers
 {
@@ -32,6 +33,16 @@ namespace MealPath.OrderManagement.Api.Controllers
         public async Task<ActionResult<GetCategoryDetailsQueryResponse>> GetProductById(int id)
         {
             var response = await _mediator.Send(new GetCategoryDetailsQuery() { CategoryId = id }); 
+            return Ok(response);
+        }
+
+        [HttpPut(Name = "UpdateCategory")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
+        public async Task<ActionResult<UpdateCategoryCommandResponse>> Update([FromBody] UpdateCategoryCommand updateProductCommand)
+        {
+            var response = await _mediator.Send(updateProductCommand);
             return Ok(response);
         }
 
