@@ -15,10 +15,11 @@ interface Props{
     openForm : (id: number) => void;
     closeForm : () => void; 
     createOrEdit: (category: Category) => void;
+    submitting: boolean;
 }
 
 export default function CategoryDashboard({categories, selectedCategory, 
-    selectCategory, cancelSelectedCategory, editMode, openForm, closeForm, createOrEdit}: Props){
+    selectCategory, cancelSelectedCategory, editMode, openForm, closeForm, createOrEdit, submitting}: Props){
     return(
         <Grid>
             <Grid.Column width='10'>
@@ -32,7 +33,11 @@ export default function CategoryDashboard({categories, selectedCategory,
                     openForm={openForm}
                  />}
                 {editMode && 
-                    <CategoryForm category={selectedCategory} closeForm={closeForm} createOrEdit={createOrEdit} />
+                    <CategoryForm 
+                    category={selectedCategory} 
+                    closeForm={closeForm} 
+                    createOrEdit={createOrEdit} 
+                    submitting={submitting} />
                 }
             </Grid.Column>
         </Grid>

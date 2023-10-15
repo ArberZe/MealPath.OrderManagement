@@ -1,19 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { Header, List, Container } from 'semantic-ui-react';
 import { Category } from '../app/models/category';
 import Navbar from './Navbar';
 import CategoryDashboard from '../app/features/Categories/dashboard/CategoryDashboard';
+import agent from '../app/api/agent';
+import LoadingComponent from './LoadingComponent';
 
 function App() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<Category | undefined>(undefined);
   const [editMode, setEditMode] = useState(false);
-  
+  const [loading, setLoading] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
+
   useEffect(() => {
-    axios.get<Category[]>('https://localhost:7155/api/category/all').then(response => {
-      console.log(response.data);  
-      setCategories(response.data);
+    agent.Categories.list().then(response => {
+      setCategories(response);
+      setLoading(false);
     })
   }, [])
 
@@ -35,12 +38,31 @@ function App() {
   }
 
   function handleCreateOrEditCategory(category: Category){
-    category.categoryId
-    ? setCategories([...categories.filter(x => x.categoryId !== category.categoryId), category])
-    : setCategories([...categories, category]);
-    setEditMode(false);
-    setSelectedCategory(category);
+    setSubmitting(true);
+    if(category.categoryId){
+      agent.Categories.update(category).then(() => {
+        setCategories([...categories.filter(x => x.categoryId !== category.categoryId), category]);
+        setSelectedCategory(category);
+        setEditMode(false);
+        setSubmitting(false);
+      })
+    }else{
+      agent.Categories.create(category).then(() => {
+        setCategories([...categories, category]);
+        setSelectedCategory(category);
+        setEditMode(false);
+        setSubmitting(false);
+      })
+    }
+
+    // category.categoryId
+    // ? setCategories([...categories.filter(x => x.categoryId !== category.categoryId), category])
+    // : setCategories([...categories, category]);
+    // setEditMode(false);
+    // setSelectedCategory(category);
   }
+
+  if(loading) return <LoadingComponent content='Loading App'/>
 
   return (
     <div>
@@ -55,6 +77,7 @@ function App() {
           openForm={handleFormOpen}
           closeForm={handleFormClose}
           createOrEdit={handleCreateOrEditCategory}
+          submitting={submitting}
         />
       </Container>
                 
