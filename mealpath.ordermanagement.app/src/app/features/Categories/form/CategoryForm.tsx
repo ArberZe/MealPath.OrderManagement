@@ -6,9 +6,10 @@ interface Props{
     category: Category | undefined;
     closeForm: () => void;
     createOrEdit: (category: Category) => void;
+    submitting: boolean;
 }
 
-export default function CategoryForm({category: selectedCategory, closeForm, createOrEdit}: Props){
+export default function CategoryForm({category: selectedCategory, closeForm, createOrEdit, submitting}: Props){
     const initialState = selectedCategory ?? {
         categoryId: 0,
         name: ''
@@ -29,7 +30,7 @@ export default function CategoryForm({category: selectedCategory, closeForm, cre
         <Segment clearing>
             <Form onSubmit={handleSubmit} autoComplete='off'>
                 <Form.Input placeholder='name' value={category.name} name='name' onChange={handleInputChange} />
-                <Button positive floated='right' type="submit" content='Submit' />
+                <Button loading={submitting} positive floated='right' type="submit" content='Submit' />
                 <Button onClick={closeForm} floated='right' type="button" content='Cancel' />
 
             </Form>
