@@ -1,15 +1,12 @@
 import React, { useState, ChangeEvent } from "react";
 import { Form, Segment, Button } from "semantic-ui-react";
-import { Category } from "../../../models/category";
+import { useStore } from "../../../stores/store";
+import { observer } from "mobx-react-lite";
 
-interface Props{
-    category: Category | undefined;
-    closeForm: () => void;
-    createOrEdit: (category: Category) => void;
-    submitting: boolean;
-}
-
-export default function CategoryForm({category: selectedCategory, closeForm, createOrEdit, submitting}: Props){
+export default observer(function CategoryForm(){
+    const {categoryStore} = useStore();
+    const {selectedCategory, closeForm, createCategory, updateCategory, loading} = categoryStore;
+    
     const initialState = selectedCategory ?? {
         categoryId: 0,
         name: ''
@@ -18,7 +15,7 @@ export default function CategoryForm({category: selectedCategory, closeForm, cre
     const [category, setCategory] = useState(initialState);
 
     function handleSubmit(){
-        createOrEdit(category);
+        category.categoryId ? updateCategory(category) : createCategory(category);
     }
 
     function handleInputChange(event: ChangeEvent<HTMLInputElement>){
@@ -30,10 +27,10 @@ export default function CategoryForm({category: selectedCategory, closeForm, cre
         <Segment clearing>
             <Form onSubmit={handleSubmit} autoComplete='off'>
                 <Form.Input placeholder='name' value={category.name} name='name' onChange={handleInputChange} />
-                <Button loading={submitting} positive floated='right' type="submit" content='Submit' />
+                <Button loading={loading} positive floated='right' type="submit" content='Submit' />
                 <Button onClick={closeForm} floated='right' type="button" content='Cancel' />
 
             </Form>
         </Segment>
     )
-}
+})
