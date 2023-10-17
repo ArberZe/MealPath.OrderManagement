@@ -1,10 +1,10 @@
 import React from "react";
 import { Menu, Container, Button } from 'semantic-ui-react'; 
-interface Props{
-    openForm: () => void;
-}
+import { useStore } from "../app/stores/store";
 
-export default function Navbar({openForm}: Props){
+export default function Navbar(){
+    const {categoryStore} = useStore();
+
     return(
         <Menu inverted fixed="top">
             <Container>
@@ -14,7 +14,7 @@ export default function Navbar({openForm}: Props){
                 </Menu.Item>
                 <Menu.Item name="Categories" />
                 <Menu.Item>
-                    <Button onClick={openForm} positive content="Create Category" />
+                    <Button onClick={() => categoryStore.openForm()} positive content="Create Category" />
                 </Menu.Item>
             </Container>
         </Menu>

@@ -1,14 +1,14 @@
 import React from "react";
-import { Card, Button } from "semantic-ui-react";
-import { Category } from "../../../models/category";
+import { Card, Button } from 'semantic-ui-react'; 
+import { useStore } from "../../../stores/store";
+import LoadingComponent from "../../../../layout/LoadingComponent";
 
-interface Props{
-    category: Category;
-    cancelSelectedCategory: () => void;
-    openForm : (id: number) => void;
-}
+export default function CategoryDetails(){
+    const {categoryStore} = useStore();
+    const { selectedCategory: category, openForm, cancelSelectedCategory } = categoryStore;
 
-export default function CategoryDetails({category, cancelSelectedCategory, openForm}: Props){
+    if(!category) return <LoadingComponent />;
+
     return (
         <Card>
             <Card.Content>
