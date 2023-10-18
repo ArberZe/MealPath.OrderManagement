@@ -1,6 +1,7 @@
 import React from "react";
 import { Menu, Container, Button } from 'semantic-ui-react'; 
 import { useStore } from "../app/stores/store";
+import { NavLink } from "react-router-dom";
 
 export default function Navbar(){
     const {categoryStore} = useStore();
@@ -12,10 +13,7 @@ export default function Navbar(){
                     <img src="/assets/logo.png" alt="logo" />
                     MealPath
                 </Menu.Item>
-                <Menu.Item name="Categories" />
-                <Menu.Item>
-                    <Button onClick={() => categoryStore.openForm()} positive content="Create Category" />
-                </Menu.Item>
+                <Menu.Item as={NavLink} to='/categories' name="Categories" />
             </Container>
         </Menu>
     )

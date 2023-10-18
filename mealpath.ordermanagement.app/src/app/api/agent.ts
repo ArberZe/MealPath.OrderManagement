@@ -31,7 +31,8 @@ const requests = {
 const Categories = {
     list: () => requests.get<Category[]>('/category/all'),
     create: (category: Category) => axios.post<void>('/category', category),
-    update: (category: Category) => axios.put<void>(`/category/`, category)
+    update: (category: Category) => axios.put<void>(`/category/`, category),
+    details: (id: number) => requests.get<Category>(`/category/${id}`)
 }
 
 const agent = {
