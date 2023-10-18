@@ -4,7 +4,6 @@ import { useStore } from "../app/stores/store";
 import { NavLink } from "react-router-dom";
 
 export default function Navbar(){
-    const {categoryStore} = useStore();
 
     return(
         <Menu inverted fixed="top">

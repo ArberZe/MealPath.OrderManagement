@@ -24,10 +24,12 @@ export default observer(function CategoryDashboard({categories}: Props){
 
     return(
         <Grid>
-            <Grid.Column width='10'>
-                <Menu.Item>
+            <Grid.Row>
+            <Menu.Item>
                     <Button onClick={() => categoryStore.openForm()} positive content="Create Category" />
                 </Menu.Item>
+            </Grid.Row>
+            <Grid.Column width='10'>
                 <CategoryList categories={categoryStore.categories} />
             </Grid.Column>
             <Grid.Column width='6'>
