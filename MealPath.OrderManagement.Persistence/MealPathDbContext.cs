@@ -10,6 +10,13 @@ namespace MealPath.OrderManagement.Persistence
         {
         }
 
+
+
+        public DbSet<Product> Products { get; set; } = default!;
+
+        
+        
+
         public DbSet<Category> Categories { get; set; } = default!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -26,6 +33,18 @@ namespace MealPath.OrderManagement.Persistence
             {
                 CategoryId = 2,
                 Name = "Pije"
+            });
+
+            modelBuilder.Entity<Product>().HasData(new Product
+            {
+                ProductID = 1,
+                Title = "Pizza Margarita",
+                Description = "yes",
+                CategoryId = 1,
+                Price = 4.2,
+                ImageUrl = "test.url",
+                Status = true
+
             });
         }
 
