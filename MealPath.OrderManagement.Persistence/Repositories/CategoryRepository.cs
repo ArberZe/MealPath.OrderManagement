@@ -1,6 +1,5 @@
 ﻿using MealPath.OrderManagement.Application.Contracts.Persistence;
 using MealPath.OrderManagement.Domain.Entities;
-using MealPath.OrderManagement.Persistence;
 using Microsoft.EntityFrameworkCore;
 
 namespace MealPath.OrderManagement.Persistence.Repositories
