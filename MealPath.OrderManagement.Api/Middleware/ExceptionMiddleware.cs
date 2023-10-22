@@ -35,13 +35,13 @@ namespace MealPath.OrderManagement.Api.Middleware
                 context.Response.ContentType = "application/json";
                 context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 
-                var responsee = _env.IsDevelopment()
+                var response = _env.IsDevelopment()
                     ? new AppException(context.Response.StatusCode, ex.Message, ex.StackTrace?.ToString())
                     : new AppException(context.Response.StatusCode, "Server Error!", "");
 
                 var options = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
 
-                var json = JsonSerializer.Serialize(responsee, options);
+                var json = JsonSerializer.Serialize(response, options);
 
                 await context.Response.WriteAsync(json);
                 //await ConvertException(context, ex);

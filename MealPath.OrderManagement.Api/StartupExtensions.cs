@@ -39,6 +39,8 @@ namespace MealPath.OrderManagement.Api
 
         public static WebApplication ConfigurePipeline(this WebApplication app)
         {
+            app.UseCustomExceptionHandler();
+
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
@@ -50,7 +52,6 @@ namespace MealPath.OrderManagement.Api
 
             app.UseHttpsRedirection();
 
-            app.UseCustomExceptionHandler();
 
             app.UseRouting();
 
