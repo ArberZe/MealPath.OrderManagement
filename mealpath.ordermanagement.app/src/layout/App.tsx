@@ -7,6 +7,7 @@ import { Route, Routes } from 'react-router';
 import Homepage from '../app/features/home/Homepage';
 import CategoryForm from '../app/features/Categories/form/CategoryForm';
 import CategoryDetails from '../app/features/Categories/details/CategoryDetails';
+import NotFound from '../app/features/errors/NotFound';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Routes>
           <Route path='/' Component={Homepage} />
           <Route path='/categories' Component={CategoryDashboard} />
+          <Route path='*' Component={NotFound} />
         </Routes>
       </Container>
                 
