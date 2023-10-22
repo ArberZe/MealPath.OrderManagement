@@ -2,6 +2,7 @@
 using MediatR;
 using MealPath.OrderManagement.Application.Contracts.Persistence;
 using MealPath.OrderManagement.Domain.Entities;
+using MealPath.OrderManagement.Application.Features.Categories.Commands.UpdateCategory;
 
 namespace MealPath.OrderManagement.Application.Features.Categories.Commands.CreateCategory
 {
@@ -31,13 +32,15 @@ namespace MealPath.OrderManagement.Application.Features.Categories.Commands.Crea
                 {
                     createCategoryCommandResponse.ValidationErrors.Add(error.ErrorMessage);
                 }
+                createCategoryCommandResponse.Message = "Validation of category failed!";
+
             }
 
-            if(createCategoryCommandResponse.Success)
+            if (createCategoryCommandResponse.Success)
             {
                 var category = new Category() { Name = request.Name };
                 category = await _categoryRepository.AddAsync(category);
-                createCategoryCommandResponse.Category = _mapper.Map<CreateCategoryDto>(category);
+                createCategoryCommandResponse.Value = _mapper.Map<CreateCategoryDto>(category);
             }
 
             return createCategoryCommandResponse;
