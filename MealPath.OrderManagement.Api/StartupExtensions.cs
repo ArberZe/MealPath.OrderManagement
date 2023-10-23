@@ -1,4 +1,5 @@
-﻿using MealPath.OrderManagement.Api.Utility;
+﻿using MealPath.OrderManagement.Api.Middleware;
+using MealPath.OrderManagement.Api.Utility;
 using MealPath.OrderManagement.Application;
 using MealPath.OrderManagement.Persistence;
 using Microsoft.EntityFrameworkCore;
@@ -9,7 +10,6 @@ using Microsoft.OpenApi.Models;
 //using StockManagement.Api.Utility;
 //using Serilog;
 //using MealPath.OrderManagement.Identity;
-//using MealPath.OrderManagement.Api.Middleware;
 
 namespace MealPath.OrderManagement.Api
 {
@@ -18,6 +18,7 @@ namespace MealPath.OrderManagement.Api
         public static WebApplication ConfigureServices(
         this WebApplicationBuilder builder)
         {
+
             AddSwagger(builder.Services);
 
             builder.Services.AddApplicationServices();
@@ -38,6 +39,7 @@ namespace MealPath.OrderManagement.Api
 
         public static WebApplication ConfigurePipeline(this WebApplication app)
         {
+            app.UseCustomExceptionHandler();
 
             if (app.Environment.IsDevelopment())
             {
@@ -49,6 +51,7 @@ namespace MealPath.OrderManagement.Api
             }
 
             app.UseHttpsRedirection();
+
 
             app.UseRouting();
 
@@ -67,7 +70,7 @@ namespace MealPath.OrderManagement.Api
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = "v1",
-                    Title = "MealPAth Ordermanagement api"
+                    Title = "MealPath Ordermanagement api"
                 });
 
                 c.OperationFilter<FileResultContentTypeOperationFilter>();

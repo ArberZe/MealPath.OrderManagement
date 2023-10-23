@@ -2,13 +2,11 @@
 
 namespace MealPath.OrderManagement.Application.Features.Categories.Queries.GetCategoryDetails
 {
-    public class GetCategoryDetailsQueryResponse: BaseResponse
+    public class GetCategoryDetailsQueryResponse: BaseResponse<CategoryDetailsVm>
     {
         public GetCategoryDetailsQueryResponse(): base()
         {
             
         }
-
-        public CategoryDetailsVm Category { get; set; } = default!;
     }
 }

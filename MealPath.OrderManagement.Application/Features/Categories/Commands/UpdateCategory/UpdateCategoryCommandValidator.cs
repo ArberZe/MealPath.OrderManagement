@@ -7,9 +7,9 @@ namespace MealPath.OrderManagement.Application.Features.Categories.Commands.Upda
         public UpdateCategoryCommandValidator()
         {
             RuleFor(p => p.Name)
-            .NotEmpty().WithMessage("{PropertyName} is required.")
-            .NotNull().WithMessage("{PropertyMame} cannot be null")
-            .MaximumLength(50).WithMessage("{PropertyName} cannot have more than 50 characters.");
+            .NotEmpty().WithMessage("Category name is required.")
+            .NotNull().WithMessage("Category name cannot be null")
+            .MaximumLength(50).WithMessage("Category name cannot have more than 50 characters.");
         }
     }
 }
