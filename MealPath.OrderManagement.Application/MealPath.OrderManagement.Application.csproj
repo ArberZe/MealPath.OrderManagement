@@ -19,8 +19,4 @@
 	<ProjectReference Include="..\MealPath.OrderManagement.Domain\MealPath.OrderManagement.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-	<Folder Include="Models\" />
-  </ItemGroup>
-
 </Project>

@@ -1,5 +1,4 @@
-﻿
-using FluentValidation;
+﻿using FluentValidation;
 
 namespace MealPath.OrderManagement.Application.Features.Products.Commands.UpdateProduct
 {
