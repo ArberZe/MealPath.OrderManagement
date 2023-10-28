@@ -1,4 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using MealPath.OrderManagement.Identity.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -10,6 +13,19 @@ namespace MealPath.OrderManagement.Identity
         {
             services.AddDbContext<MealPathIdentityDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("MealPathIdentityConnectionString"),
                                                                     b => b.MigrationsAssembly(typeof(MealPathIdentityDbContext).Assembly.FullName)));
+
+            services.AddIdentity<AppUser, IdentityRole>()
+                .AddEntityFrameworkStores<MealPathIdentityDbContext>()
+                .AddSignInManager<SignInManager<AppUser>>()
+                .AddDefaultTokenProviders();
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            });
+
+            //return services;
         }
     }
 }

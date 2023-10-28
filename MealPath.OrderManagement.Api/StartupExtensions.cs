@@ -2,7 +2,10 @@
 using MealPath.OrderManagement.Api.Utility;
 using MealPath.OrderManagement.Application;
 using MealPath.OrderManagement.Identity;
+using MealPath.OrderManagement.Identity.Models;
+using MealPath.OrderManagement.Identity.Seed;
 using MealPath.OrderManagement.Persistence;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 //using MealPath.OrderManagement.Infrastructure;
 //using MealPath.OrderManagement.Persistence;
@@ -128,11 +131,14 @@ namespace MealPath.OrderManagement.Api
             using var scope = app.Services.CreateScope();
             try
             {
+                var userManager = scope.ServiceProvider.GetService<UserManager<AppUser>>();
+
                 var context = scope.ServiceProvider.GetService<MealPathDbContext>();
                 if (context != null)
                 {
                     await context.Database.EnsureDeletedAsync();
                     await context.Database.MigrateAsync();
+                    await UserCreator.SeedAsync(userManager);
                 }
             }
             catch (Exception ex)
