@@ -1,4 +1,5 @@
 ﻿using MealPath.OrderManagement.Identity.Models;
+using MealPath.OrderManagement.Identity.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -24,6 +25,8 @@ namespace MealPath.OrderManagement.Identity
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             });
+
+            services.AddScoped<TokenService>();
 
             //return services;
         }

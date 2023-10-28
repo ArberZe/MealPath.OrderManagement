@@ -1,5 +1,6 @@
 ﻿using MealPath.OrderManagement.Api.DTOs.Authentication;
 using MealPath.OrderManagement.Identity.Models;
+using MealPath.OrderManagement.Identity.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -12,11 +13,13 @@ namespace MealPath.OrderManagement.Api.Controllers
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
+        private readonly TokenService _tokenService;
 
-        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
+        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, TokenService tokenService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _tokenService = tokenService;
         }
 
         [HttpPost("login")]
@@ -33,7 +36,7 @@ namespace MealPath.OrderManagement.Api.Controllers
                 {
                     DisplayName = user.DisplayName,
                     Image = "this will be image url",
-                    Token = "This will be a token",
+                    Token = _tokenService.CreateTokem(user),
                     UserName = user.UserName
                 };
             }
