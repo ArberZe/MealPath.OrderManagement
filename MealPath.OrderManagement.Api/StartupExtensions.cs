@@ -1,6 +1,7 @@
 ﻿using MealPath.OrderManagement.Api.Middleware;
 using MealPath.OrderManagement.Api.Utility;
 using MealPath.OrderManagement.Application;
+using MealPath.OrderManagement.Identity;
 using MealPath.OrderManagement.Persistence;
 using Microsoft.EntityFrameworkCore;
 //using MealPath.OrderManagement.Infrastructure;
@@ -24,7 +25,7 @@ namespace MealPath.OrderManagement.Api
             builder.Services.AddApplicationServices();
             //builder.Services.AddInfrastructureServices(builder.Configuration);
             builder.Services.AddPersistenceServices(builder.Configuration);
-            //builder.Services.AddIdentityServices(builder.Configuration);
+            builder.Services.AddIdentityServices(builder.Configuration);
 
             builder.Services.AddControllers();
 
