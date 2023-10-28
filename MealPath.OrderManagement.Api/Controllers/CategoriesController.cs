@@ -28,7 +28,7 @@ namespace MealPath.OrderManagement.Api.Controllers
             return Ok(dtos);
         }
 
-        [AllowAnonymous]
+        [Authorize]
         [HttpGet("{id}", Name = "GetCategoryById")]
         public async Task<ActionResult<GetCategoryDetailsQueryResponse>> GetProductById(int id)
         {

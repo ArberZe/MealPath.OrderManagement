@@ -1,4 +1,5 @@
 ﻿using MealPath.OrderManagement.Identity.Models;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -9,6 +10,12 @@ namespace MealPath.OrderManagement.Identity.Services
 {
     public class TokenService
     {
+        private readonly JwtSettings _jwtSettings;
+
+        public TokenService(IOptions<JwtSettings> jwtSettings)
+        {
+            _jwtSettings = jwtSettings.Value;
+        }
         public string CreateTokem(AppUser user)
         {
             var claims = new List<Claim>()
@@ -18,13 +25,15 @@ namespace MealPath.OrderManagement.Identity.Services
                 new Claim(ClaimTypes.Email, user.Email)
             };
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("super secret key"));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Key));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
+                Issuer = _jwtSettings.Issuer,
+                Audience = _jwtSettings.Audience,
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.Now.AddDays(7),
+                Expires = DateTime.Now.AddDays(_jwtSettings.DurationInMinutes),
                 SigningCredentials = creds
             };
 
