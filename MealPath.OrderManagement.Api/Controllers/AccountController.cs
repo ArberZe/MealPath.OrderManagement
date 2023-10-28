@@ -1,6 +1,7 @@
 ﻿using MealPath.OrderManagement.Api.DTOs.Authentication;
 using MealPath.OrderManagement.Identity.Models;
 using MealPath.OrderManagement.Identity.Services;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -42,6 +43,40 @@ namespace MealPath.OrderManagement.Api.Controllers
             }
 
             return Unauthorized();
+        }
+
+        [HttpPost("register")]
+        public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
+        {
+
+            if (await _userManager.FindByNameAsync(registerDto.UserName) != null) return BadRequest("Username is taken!");
+
+            if (await _userManager.FindByEmailAsync(registerDto.Email) != null) return BadRequest("Email is taken!");
+
+
+            var user = new AppUser
+            {
+                DisplayName = registerDto.DisplayName,
+                Email = registerDto.Email,
+                UserName = registerDto.UserName,
+                EmailConfirmed = true
+            };
+
+
+            var result = await _userManager.CreateAsync(user, registerDto.Password);
+            if (result.Succeeded)
+            {
+                //_signInManager.SignInAsync(user, request.Password);
+                return new UserDto()
+                {
+                    DisplayName = user.DisplayName,
+                    UserName = user.UserName,
+                    Token = _tokenService.CreateTokem(user),
+                    Image = "this is a url image"
+                };
+            }
+
+            return BadRequest("A problem occurred while registering the user!");
         }
     }
 }
