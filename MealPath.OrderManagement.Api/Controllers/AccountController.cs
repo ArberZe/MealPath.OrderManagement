@@ -2,9 +2,12 @@
 using MealPath.OrderManagement.Identity.Models;
 using MealPath.OrderManagement.Identity.Services;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace MealPath.OrderManagement.Api.Controllers
 {
@@ -33,13 +36,7 @@ namespace MealPath.OrderManagement.Api.Controllers
 
             if (result.Succeeded)
             {
-                return new UserDto()
-                {
-                    DisplayName = user.DisplayName,
-                    Image = "this will be image url",
-                    Token = _tokenService.CreateTokem(user),
-                    UserName = user.UserName
-                };
+                return CreateUserObject(user);
             }
 
             return Unauthorized();
@@ -67,16 +64,30 @@ namespace MealPath.OrderManagement.Api.Controllers
             if (result.Succeeded)
             {
                 //_signInManager.SignInAsync(user, request.Password);
-                return new UserDto()
-                {
-                    DisplayName = user.DisplayName,
-                    UserName = user.UserName,
-                    Token = _tokenService.CreateTokem(user),
-                    Image = "this is a url image"
-                };
+                return CreateUserObject(user);
             }
 
             return BadRequest("A problem occurred while registering the user!");
+        }
+
+        [Authorize]
+        [HttpGet]
+        public async Task<ActionResult<UserDto>> GetCurrentUser()
+        {
+            var user = await _userManager.FindByEmailAsync(User.FindFirstValue(ClaimTypes.Email));
+
+            return CreateUserObject(user);
+        }
+
+        private UserDto CreateUserObject(AppUser user)
+        {
+            return new UserDto
+            {
+                DisplayName = user.DisplayName,
+                Image = "",
+                Token = _tokenService.CreateTokem(user),
+                UserName = user.UserName
+            };
         }
     }
 }
