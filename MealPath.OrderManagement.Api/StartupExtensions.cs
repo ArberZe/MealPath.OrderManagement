@@ -54,7 +54,7 @@ namespace MealPath.OrderManagement.Api
                 });
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseAuthentication();
 

@@ -46,9 +46,17 @@ namespace MealPath.OrderManagement.Api.Controllers
         public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
         {
 
-            if (await _userManager.FindByNameAsync(registerDto.UserName) != null) return BadRequest("Username is taken!");
+            if (await _userManager.FindByNameAsync(registerDto.UserName) != null) 
+            {
+                ModelState.AddModelError("Username", "Username is taken");
+                return ValidationProblem();
+            }
 
-            if (await _userManager.FindByEmailAsync(registerDto.Email) != null) return BadRequest("Email is taken!");
+            if (await _userManager.FindByEmailAsync(registerDto.Email) != null)
+            {
+                ModelState.AddModelError("Email", "Email is taken");
+                return ValidationProblem();
+            }
 
 
             var user = new AppUser
