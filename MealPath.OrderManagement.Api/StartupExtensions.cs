@@ -134,14 +134,14 @@ namespace MealPath.OrderManagement.Api
             using var scope = app.Services.CreateScope();
             try
             {
-                var userManager = scope.ServiceProvider.GetService<UserManager<AppUser>>();
+                //var userManager = scope.ServiceProvider.GetService<UserManager<AppUser>>();
 
                 var context = scope.ServiceProvider.GetService<MealPathDbContext>();
                 if (context != null)
                 {
                     await context.Database.EnsureDeletedAsync();
                     await context.Database.MigrateAsync();
-                    await UserCreator.SeedAsync(userManager);
+                    //await UserCreator.SeedAsync(userManager);
                 }
             }
             catch (Exception ex)

@@ -3,9 +3,8 @@ using MongoDbGenericRepository.Attributes;
 
 namespace MealPath.OrderManagement.Identity.Models
 {
-    [CollectionName("users")]
-    public class AppUser: MongoIdentityUser<Guid>
+    [CollectionName("roles")]
+    public class AppRole: MongoIdentityRole<Guid>
     {
-        public string DisplayName { get; set; } = string.Empty;
     }
 }
