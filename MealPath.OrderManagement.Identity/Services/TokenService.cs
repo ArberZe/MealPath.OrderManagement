@@ -33,7 +33,8 @@ namespace MealPath.OrderManagement.Identity.Services
                 Issuer = _jwtSettings.Issuer,
                 Audience = _jwtSettings.Audience,
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.Now.AddDays(_jwtSettings.DurationInMinutes),
+                //Expires = DateTime.Now.AddDays(_jwtSettings.DurationInMinutes),
+                Expires = DateTime.Now.AddMinutes(10),
                 SigningCredentials = creds
             };
 
@@ -42,6 +43,15 @@ namespace MealPath.OrderManagement.Identity.Services
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
             return tokenHandler.WriteToken(token);
+        }
+
+        public RefreshToken GenerateRefreshToken()
+        {
+            var randomNumber = new byte[32];
+            using var rng = RandomNumberGenerator.Create();
+
+            rng.GetBytes(randomNumber);
+            return new RefreshToken { Token = Convert.ToBase64String(randomNumber) };
         }
     }
 }

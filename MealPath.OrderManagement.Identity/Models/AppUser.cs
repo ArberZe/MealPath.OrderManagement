@@ -7,5 +7,6 @@ namespace MealPath.OrderManagement.Identity.Models
     public class AppUser: MongoIdentityUser<Guid>
     {
         public string DisplayName { get; set; } = string.Empty;
+        public ICollection<RefreshToken> RefreshTokens { get; set; } = new List<RefreshToken>();
     }
 }

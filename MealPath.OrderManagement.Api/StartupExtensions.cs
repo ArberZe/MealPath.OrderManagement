@@ -34,7 +34,12 @@ namespace MealPath.OrderManagement.Api
 
             builder.Services.AddCors(options =>
             {
-                options.AddPolicy("Open", builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+                options.AddPolicy("Open", builder => 
+                builder
+                .AllowAnyOrigin()
+                .AllowAnyHeader()
+                .WithExposedHeaders("WWW-Authenticate")
+                .AllowAnyMethod());
             });
 
             return builder.Build();
