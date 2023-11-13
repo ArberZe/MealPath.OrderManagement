@@ -18,12 +18,27 @@ namespace MealPath.OrderManagement.Api.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
         private readonly TokenService _tokenService;
+        private readonly RoleManager<AppRole> _roleManager;
 
-        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, TokenService tokenService)
+        public AccountController(UserManager<AppUser> userManager, 
+            SignInManager<AppUser> signInManager, 
+            TokenService tokenService,
+            RoleManager<AppRole> roleManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _tokenService = tokenService;
+            _roleManager = roleManager;
+        }
+
+        [HttpPost]
+        [Route("roles/add")]
+        public async Task<IActionResult> CreateRole(CreateRoleDto request)
+        {
+            var appRole = new AppRole { Name = request.RoleName };
+            var createRole = await _roleManager.CreateAsync(appRole);
+
+            return Ok(new { message = "role created succesfully" });
         }
 
         [HttpPost("login")]
@@ -77,7 +92,16 @@ namespace MealPath.OrderManagement.Api.Controllers
             {
                 //_signInManager.SignInAsync(user, request.Password);
                 await SetRefreshToken(user);
+                //add user to role
+                var addUserToRoleResult = await _userManager.AddToRoleAsync(user, "USER");
+
+                if(!addUserToRoleResult.Succeeded)
+                {
+                    return BadRequest("A problem occurred while asigning a role to the user");
+                }
+
                 return CreateUserObject(user);
+
             }
 
             return BadRequest("A problem occurred while registering the user!");
