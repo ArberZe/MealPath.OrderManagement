@@ -34,7 +34,12 @@ namespace MealPath.OrderManagement.Api
 
             builder.Services.AddCors(options =>
             {
-                options.AddPolicy("Open", builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+                options.AddPolicy("Open", builder => 
+                builder
+                .AllowAnyOrigin()
+                .AllowAnyHeader()
+                .WithExposedHeaders("WWW-Authenticate")
+                .AllowAnyMethod());
             });
 
             return builder.Build();
@@ -134,14 +139,14 @@ namespace MealPath.OrderManagement.Api
             using var scope = app.Services.CreateScope();
             try
             {
-                var userManager = scope.ServiceProvider.GetService<UserManager<AppUser>>();
+                //var userManager = scope.ServiceProvider.GetService<UserManager<AppUser>>();
 
                 var context = scope.ServiceProvider.GetService<MealPathDbContext>();
                 if (context != null)
                 {
                     await context.Database.EnsureDeletedAsync();
                     await context.Database.MigrateAsync();
-                    await UserCreator.SeedAsync(userManager);
+                    //await UserCreator.SeedAsync(userManager);
                 }
             }
             catch (Exception ex)
