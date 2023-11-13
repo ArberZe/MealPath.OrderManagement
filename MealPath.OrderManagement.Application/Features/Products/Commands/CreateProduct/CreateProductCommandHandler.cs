@@ -51,14 +51,14 @@ namespace MealPath.OrderManagement.Application.Features.Products.Commands.Create
                 //var email = new Email() {To = "erionismajli50@gmail.com", Body = $"A new product was created: {request}",
                 //    Subject = "A new product was created"};
 
-                try
-                {
-                    //await _emailService.SendEmail(email);
-                }
-                catch (Exception e)
-                {
-                    //this shouldn't stop the API from doing else so this can be logged
-                }
+                //try
+                //{
+                //    //await _emailService.SendEmail(email);
+                //}
+                //catch (Exception e)
+                //{
+                //    //this shouldn't stop the API from doing else so this can be logged
+                //}
             }
 
             return createProductCommandResponse;

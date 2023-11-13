@@ -1,10 +1,10 @@
 import React from "react";
 import { Menu, Container, Button } from 'semantic-ui-react'; 
-interface Props{
-    openForm: () => void;
-}
+import { useStore } from "../app/stores/store";
+import { NavLink } from "react-router-dom";
 
-export default function Navbar({openForm}: Props){
+export default function Navbar(){
+
     return(
         <Menu inverted fixed="top">
             <Container>
@@ -12,10 +12,7 @@ export default function Navbar({openForm}: Props){
                     <img src="/assets/logo.png" alt="logo" />
                     MealPath
                 </Menu.Item>
-                <Menu.Item name="Categories" />
-                <Menu.Item>
-                    <Button onClick={openForm} positive content="Create Category" />
-                </Menu.Item>
+                <Menu.Item as={NavLink} to='/categories' name="Categories" />
             </Container>
         </Menu>
     )

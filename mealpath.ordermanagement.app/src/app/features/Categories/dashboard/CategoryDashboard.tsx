@@ -1,45 +1,44 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Category } from "../../../models/category";
-import { Grid } from "semantic-ui-react";
+import { Grid, Menu, Button } from "semantic-ui-react";
 import CategoryList from "./CategoryList";
 import CategoryForm from "../form/CategoryForm";
 import CategoryDetails from "../details/CategoryDetails";
-import { create } from "domain";
+import { useStore } from "../../../stores/store";
+import { observer } from "mobx-react-lite";
+import LoadingComponent from "../../../../layout/LoadingComponent";
 
 interface Props{
     categories: Category[];
-    selectedCategory: Category | undefined;
-    selectCategory: (id: number) => void;
-    cancelSelectedCategory: () => void;
-    editMode : boolean;
-    openForm : (id: number) => void;
-    closeForm : () => void; 
-    createOrEdit: (category: Category) => void;
-    submitting: boolean;
 }
 
-export default function CategoryDashboard({categories, selectedCategory, 
-    selectCategory, cancelSelectedCategory, editMode, openForm, closeForm, createOrEdit, submitting}: Props){
+export default observer(function CategoryDashboard({categories}: Props){
+    const {categoryStore} = useStore();
+    const {selectedCategory, editMode } = categoryStore;
+
+    useEffect(() => {
+        categoryStore.loadCategories();
+    }, [categoryStore])
+
+    if(categoryStore.loadingInitial) return <LoadingComponent content="Loading app" />
+
     return(
         <Grid>
+            <Grid.Row>
+            <Menu.Item>
+                    <Button onClick={() => categoryStore.openForm()} positive content="Create Category" />
+                </Menu.Item>
+            </Grid.Row>
             <Grid.Column width='10'>
-                <CategoryList categories={categories} selectCategory={selectCategory} />
+                <CategoryList categories={categoryStore.categories} />
             </Grid.Column>
             <Grid.Column width='6'>
                 {selectedCategory && !editMode &&
-                <CategoryDetails
-                    category={selectedCategory} 
-                    cancelSelectedCategory={cancelSelectedCategory}
-                    openForm={openForm}
-                 />}
+                <CategoryDetails />}
                 {editMode && 
-                    <CategoryForm 
-                    category={selectedCategory} 
-                    closeForm={closeForm} 
-                    createOrEdit={createOrEdit} 
-                    submitting={submitting} />
+                    <CategoryForm />
                 }
             </Grid.Column>
         </Grid>
     )
-}
+})

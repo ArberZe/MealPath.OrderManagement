@@ -17,12 +17,12 @@ namespace MealPath.OrderManagement.Application.Features.Products.Commands.Create
             RuleFor(p => p.Description)
                 .NotEmpty().WithMessage("{PropertyName} eshte fushe e detyrueshme.")
                 .NotNull()
-                .MaximumLength(50).WithMessage("{PropertyName} nuk duhet te kaloje 255 karaktere.");
+                .MaximumLength(255).WithMessage("{PropertyName} nuk duhet te kaloje 255 karaktere.");
 
             RuleFor(p => p.ImageUrl)
                 .NotEmpty().WithMessage("{PropertyName} eshte fushe e detyrueshme.")
                 .NotNull()
-                .MaximumLength(50).WithMessage("{PropertyName} nuk duhet te kaloje 50 karaktere.");
+                .MaximumLength(255).WithMessage("{PropertyName} nuk duhet te kaloje 50 karaktere.");
 
             RuleFor(p => p.CategoryId)
                 .NotNull().WithMessage("{PropertyName} eshte fushe e detyrueshme.");
