@@ -48,3 +48,4 @@ if(!commonStore.appLoaded) return <LoadingComponent content='Loading app...' />
 }
 
 export default observer(App);
+export default observer(App);

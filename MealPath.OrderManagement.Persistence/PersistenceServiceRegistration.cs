@@ -23,6 +23,8 @@ namespace MealPath.OrderManagement.Persistence
 
             services.AddScoped<ICategoryRepository, CategoryRepository>();
 
+            services.AddScoped<IProductRepository, ProductRepository>();
+
             return services;
         }
     }

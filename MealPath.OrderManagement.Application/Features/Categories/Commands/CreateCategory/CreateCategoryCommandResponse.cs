@@ -1,4 +1,5 @@
-﻿using MealPath.OrderManagement.Application.Responses;
+﻿using MealPath.OrderManagement.Application.Features.Products.Commands.CreateProduct;
+using MealPath.OrderManagement.Application.Responses;
 
 namespace MealPath.OrderManagement.Application.Features.Categories.Commands.CreateCategory
 {
@@ -8,5 +9,6 @@ namespace MealPath.OrderManagement.Application.Features.Categories.Commands.Crea
         {
             
         }
+        public CreateCategoryDto Category { get; set; } = default!;
     }
 }

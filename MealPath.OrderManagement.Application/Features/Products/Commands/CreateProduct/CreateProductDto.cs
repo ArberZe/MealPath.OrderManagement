@@ -1,8 +1,12 @@
-﻿using MealPath.OrderManagement.Domain.Common;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace MealPath.OrderManagement.Domain.Entities
+namespace MealPath.OrderManagement.Application.Features.Products.Commands.CreateProduct
 {
-    public class Product : AuditableEntity
+    public class CreateProductDto
     {
         public int ProductID { get; set; }
         public string Title { get; set; }
@@ -10,6 +14,5 @@ namespace MealPath.OrderManagement.Domain.Entities
         public int CategoryId { get; set; }
         public double Price { get; set; }
         public string ImageUrl { get; set; }
-        public bool Status { get; set; }
     }
 }

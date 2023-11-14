@@ -2,7 +2,7 @@
 
 namespace MealPath.OrderManagement.Domain.Entities
 {
-    public class OrderItems : AuditableEntity
+    public class OrderItems
     {
         public int OrderItemsID { get; set; }
         public int OrderID { get; set; }
