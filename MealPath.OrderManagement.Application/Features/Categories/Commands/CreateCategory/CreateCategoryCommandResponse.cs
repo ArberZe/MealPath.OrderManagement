@@ -10,5 +10,6 @@ namespace MealPath.OrderManagement.Application.Features.Categories.Commands.Crea
             
         }
         public CreateCategoryDto Category { get; set; } = default!;
+        
     }
 }

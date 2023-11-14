@@ -8,7 +8,6 @@ import Homepage from '../app/features/home/Homepage';
 import LoginForm from '../app/features/Users/LoginForm';
 import TestErrors from '../app/features/errors/TestError';
 import { ToastContainer } from 'react-toastify';
-
 import NotFound from '../app/features/errors/NotFound';
 import ServerError from '../app/features/errors/ServerError';
 import { useStore } from '../app/stores/store';
@@ -47,5 +46,4 @@ if(!commonStore.appLoaded) return <LoadingComponent content='Loading app...' />
   );
 }
 
-export default observer(App);
 export default observer(App);
