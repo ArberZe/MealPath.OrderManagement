@@ -31,7 +31,7 @@ namespace MealPath.OrderManagement.Application.Features.Categories.Commands.Upda
                 {
                     updateCategoryCommandResponse.ValidationErrors.Add(error.ErrorMessage);
                 }
-
+                updateCategoryCommandResponse.Message = "Validation of category failed!";
                 return updateCategoryCommandResponse;
             }
 

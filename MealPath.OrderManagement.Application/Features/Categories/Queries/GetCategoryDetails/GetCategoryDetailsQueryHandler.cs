@@ -25,7 +25,7 @@ namespace MealPath.OrderManagement.Application.Features.Categories.Queries.GetCa
             if (category != null)
             {
                 getCategoryDetailsQueryResponse.Success = true;
-                getCategoryDetailsQueryResponse.Category = categoryDetailDto;
+                getCategoryDetailsQueryResponse.Value = categoryDetailDto;
                 return getCategoryDetailsQueryResponse;
             }
 

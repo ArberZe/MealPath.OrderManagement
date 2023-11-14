@@ -2,7 +2,7 @@
 
 namespace MealPath.OrderManagement.Application.Features.Products.Queries.GetProductDetails
 {
-    public class GetProductDetailsQueryResponse : BaseResponse
+    public class GetProductDetailsQueryResponse : BaseResponse<ProductDetailsVm>
     {
 
         public GetProductDetailsQueryResponse() : base()
