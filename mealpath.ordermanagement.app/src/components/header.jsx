@@ -1,14 +1,22 @@
 import React, { useState } from 'react'
 import {MdOutlineShoppingCart,MdAdd,MdLogout} from 'react-icons/md'
 import {color, motion} from "framer-motion";
-
 import Avatar from '../img/avatar.png';
 import { Link } from 'react-router-dom';
 import CartContainer from './CartContainer';
-  
-const Header = () => {
+import { useStore } from '../app/stores/store';
+import { Button } from 'semantic-ui-react';
+import LoginForm from '../app/features/Users/LoginForm';
+import RegisterForm from '../app/features/Users/RegisterForm';
+import { observer } from "mobx-react-lite";
+
+
+
+export default observer(function Header() {
   const[isMenu,setIsMenu] = useState(false);
   const[showCart, setShowCart] = useState(false);
+  const {userStore, modalStore} = useStore();
+  const {userStore: {logout}} = useStore();
 
   const handleCartButtonClick = () => {
     setShowCart(!showCart);
@@ -50,12 +58,13 @@ const Header = () => {
                   {showCart && <CartContainer />}
                 </div>
              </div>
+            {userStore.isLoggedIn ? (
+              <>
              <div className='relative'>
              <motion.img whileTap={{scale: 0.6}} src={Avatar} className="w-10 min-w-[40px] h-10 min-h-[40px] drop-shadow-xl" alt="userprofile" onClick={() => setIsMenu(true)}/>
 
              {
                 isMenu && (
-
                   <motion.div initial={{opacity: 0, scale: 0.6}}
                   animate={{opacity: 1, scale: 1}}
                   exit={{opacity: 0, scale: 0.6}}
@@ -68,12 +77,24 @@ const Header = () => {
                   {/* )} */}
                 
                   <p className="px-4 py-2 flex items-center gap-3 cursor-pointer hover:bg-slate-100
-                  transition-all duration-100 ease-out text-textColor text-base " onClick={() => setIsMenu(false)}>Logout<MdLogout/></p>
+                  transition-all duration-100 ease-out text-textColor text-base " onClick={logout}>Logout<MdLogout/></p>
                </motion.div> 
                 ) 
              }
              
            </div>
+           </>
+           )
+           : (
+            <>
+              <Button onClick={() => modalStore.openModal(<LoginForm />)} to='/login' color='green' inverted>
+                Login
+              </Button>
+              <Button onClick={() => modalStore.openModal(<RegisterForm />)} to='/register' color='green'>
+                Register
+              </Button>
+            </>
+           )}
            </div>
          
         </div>
@@ -137,6 +158,4 @@ const Header = () => {
   
     </header>
   )
-}
-
-export default Header
+})
