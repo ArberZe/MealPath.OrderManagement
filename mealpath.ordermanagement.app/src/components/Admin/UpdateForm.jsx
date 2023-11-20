@@ -1,26 +1,39 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { motion } from 'framer-motion';
 import Loader from '../Admin/UpdateForm';
+import { useStore } from '../../app/stores/store';
 
 import {
   MdFastfood,
   MdCloudUpload,
   MdDelete,
   MdAttachMoney,
-  MdClose
+  MdClose,
 } from 'react-icons/md';
 
 const UpdateForm = ({ product, onUpdate, onCancel }) => {
+  const { categoryStore } = useStore();
   const [isLoading, setIsLoading] = useState(false);
   const [updatedProduct, setUpdatedProduct] = useState({ ...product });
   const [imageUrl, setImageUrl] = useState(product.imageUrl);
   const [alertStatus, setAlertStatus] = useState(null);
   const [msg, setMsg] = useState("");
 
+  useEffect(() => {
+    const loadCategories = async () => {
+      try {
+        await categoryStore.loadCategories();
+      } catch (error) {
+        console.error('Error loading categories:', error);
+      }
+    };
+
+    loadCategories();
+  }, [categoryStore]);
+
   const handleUpdate = async () => {
-    
-    if (!updatedProduct.title || !updatedProduct.description || !imageUrl || !updatedProduct.price) {
+    if (!updatedProduct.title || !updatedProduct.description || !imageUrl || !updatedProduct.price || !updatedProduct.categoryId) {
       setAlertStatus("danger");
       setMsg("Please fill in all fields before updating.");
       return;
@@ -96,7 +109,30 @@ const UpdateForm = ({ product, onUpdate, onCancel }) => {
             className="w-full h-full text-lg bg-transparent outline-none border-none placeholder:text-gray-400 text-textColor"
           />
         </div>
-        
+
+        <div className="w-full py-2 border-b border-gray-300 flex items-center gap-2">
+          <select
+            onChange={(e) => setUpdatedProduct({ ...updatedProduct, categoryId: e.target.value })}
+            value={updatedProduct.categoryId}
+            className="outline-none w-full text-base border-b-2 border-gray-200 p-2 rounded-md cursor-pointer"
+          >
+            <option value="" className="bg-white">
+              Select Category
+            </option>
+            {categoryStore.categories &&
+              categoryStore.categories.map((item) => (
+                <option
+                  key={item.categoryId}
+                  className="text-base border-0 outline-none capitalize bg-white text-headingColor"
+                  value={item.categoryId}
+                >
+                  {item.name}
+                </option>
+              ))}
+          </select>
+        </div>
+
+
         <div className="w-full py-2 border-b border-gray-300 flex items-center gap-2">
           <MdCloudUpload className="text-xl text-gray-700" />
           <input
@@ -158,6 +194,9 @@ const UpdateForm = ({ product, onUpdate, onCancel }) => {
             className="w-full h-full text-lg bg-transparent outline-none border-none placeholder:text-gray-400 text-textColor"
           />
         </div>
+
+        
+
         <div className="flex items-center w-full">
           <button
             type="button"
