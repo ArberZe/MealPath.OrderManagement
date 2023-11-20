@@ -226,7 +226,7 @@ import { motion } from "framer-motion";
 import Loader from './Loader';
 import axios from 'axios';
 import { categories } from "../utils/data";
-
+import { useStore } from '../app/stores/store';
 import {
   MdFastfood,
   MdCloudUpload,
@@ -245,6 +245,7 @@ const CreateContainer = () => {
   const [msg, setMsg] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [fields, setFields] = useState(false);
+  const {categoryStore} = useStore();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -336,12 +337,12 @@ const CreateContainer = () => {
               <option value="" className="bg-white">
                 Select Category
               </option>
-              {categories &&
-                categories.map((item) => (
+              {categoryStore.categories &&
+                categoryStore.categories.map((item) => (
                   <option
-                    key={item.id}
+                    key={item.categoryId}
                     className="text-base border-0 outline-none capitalize bg-white text-headingColor"
-                    value={item.id}
+                    value={item.categoryId}
                   >
                     {item.name}
                   </option>
