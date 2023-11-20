@@ -231,7 +231,6 @@ import {
   MdFastfood,
   MdCloudUpload,
   MdDelete,
-  MdFoodBank,
   MdAttachMoney,
 } from "react-icons/md";
 
@@ -240,7 +239,7 @@ const CreateContainer = () => {
   const [decp, setDecp] = useState('');
   const [price, setPrice] = useState("");
   const [category, setCategory] = useState("");
-  const [image, setImage] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
 
   const [alertStatus, setAlertStatus] = useState("danger");
   const [msg, setMsg] = useState(null);
@@ -251,7 +250,7 @@ const CreateContainer = () => {
     e.preventDefault();
     setIsLoading(true);
 
-    if (!name || !decp || !price || !category || !image) {
+    if (!name || !decp || !price || !category || !imageUrl) {
       setIsLoading(false);
       setFields(true);
       setMsg('Please fill in all fields');
@@ -268,9 +267,8 @@ const CreateContainer = () => {
       description: decp,
       categoryId: category,
       price: price,
-      imageUrl: image,
+      imageUrl: imageUrl,
     };
-    
 
     try {
       const response = await axios.post('https://localhost:7155/api/Products', newFood);
@@ -286,7 +284,6 @@ const CreateContainer = () => {
     } finally {
       setIsLoading(false);
     }
-    
   };
 
   return (
@@ -330,20 +327,6 @@ const CreateContainer = () => {
               className="w-full h-full text-lg bg-transparent outline-none border-none placeholder:text-gray-400 text-textColor"
             />
           </div>
-          
-          {/* <div className="w-full py-2 border-b border-gray-300 flex items-center gap-2">
-            <MdFastfood className="text-xl text-gray-700" />
-            <input
-              type="text"
-              required
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-              placeholder="Give me a category..."
-              className="w-full h-full text-lg bg-transparent outline-none border-none placeholder:text-gray-400 text-textColor"
-            />
-          </div> */}
-
-
 
           <div className="w-full">
             <select
@@ -366,25 +349,24 @@ const CreateContainer = () => {
             </select>
           </div>
 
-
-
-          {/* <div className="w-full py-2 border-b border-gray-300 flex items-center gap-2">
+          <div className="w-full py-2 border-b border-gray-300 flex items-center gap-2">
+            <MdCloudUpload className="text-xl text-gray-700" />
             <input
               type="text"
               required
-              value={image}
-              onChange={(e) => setImage(e.target.value)}
-              placeholder="Image"
+              value={imageUrl}
+              onChange={(e) => setImageUrl(e.target.value)}
+              placeholder="Image URL (e.g., https://mealpathapp.blob.core.windows.net/mealpath/pizza5.png)"
               className="w-full h-full text-lg bg-transparent outline-none border-none placeholder:text-gray-400 text-textColor"
             />
-          </div> */}
+          </div>
 
           <div className="group flex justify-center items-center flex-col border-2 border-dotted border-gray-300 w-full h-225 md:h-340 cursor-pointer rounded-lg">
             {isLoading ? (
               <Loader />
             ) : (
               <>
-                {!image ? (
+                {!imageUrl ? (
                   <>
                     <label className="w-full h-full flex flex-col items-center justify-center cursor-pointer">
                       <div className="w-full h-full flex flex-col items-center justify-center gap-2">
@@ -393,27 +375,20 @@ const CreateContainer = () => {
                           Click here to upload
                         </p>
                       </div>
-                      <input
-                        type="file"
-                        name="uploadimage"
-                        accept="image/*"
-                        onChange={(e) => setImage(URL.createObjectURL(e.target.files[0]))}
-                        className="w-0 h-0"
-                      />
                     </label>
                   </>
                 ) : (
                   <>
                     <div className="relative h-full">
                       <img
-                        src={image}
+                        src={imageUrl}
                         alt="uploaded image"
                         className="w-full h-full object-cover"
                       />
                       <button
                         type="button"
                         className="absolute bottom-3 right-3 p-3 rounded-full bg-red-500 text-xl cursor-pointer outline-none hover:shadow-md  duration-500 transition-all ease-in-out"
-                        onClick={() => setImage("")}
+                        onClick={() => setImageUrl("")}
                       >
                         <MdDelete className="text-white" />
                       </button>
@@ -423,8 +398,6 @@ const CreateContainer = () => {
               </>
             )}
           </div>
-
-          
 
           <div className="w-full py-2 border-b border-gray-300 flex items-center gap-2">
             <MdAttachMoney className="text-gray-700 text-2xl" />
@@ -437,7 +410,7 @@ const CreateContainer = () => {
               className="w-full h-full text-lg bg-transparent outline-none border-none placeholder:text-gray-400 text-textColor"
             />
           </div>
-          
+
           <div className="flex items-center w-full">
             <button
               type="submit"
