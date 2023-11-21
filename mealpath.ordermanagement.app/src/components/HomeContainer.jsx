@@ -1,6 +1,7 @@
 import React from 'react'
 import {IoMdPizza} from 'react-icons/io'
 import pizza from '../img/pizza.png';
+import { observer } from 'mobx-react-lite';
 
 const HomeContainer = () => {
 
@@ -56,4 +57,4 @@ const HomeContainer = () => {
   )
 }
 
-export default HomeContainer
+export default observer(HomeContainer)

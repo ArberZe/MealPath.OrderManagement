@@ -13,7 +13,7 @@ import ModalContainer from './app/common/modals/modalContainer'
 import { ToastContainer } from 'react-toastify';
 import { Container } from "semantic-ui-react";
 import NotFound from "./app/features/errors/NotFound";
-
+import { observer } from "mobx-react-lite";
 
 const App = () => {
     const {commonStore, userStore} = useStore();
@@ -26,7 +26,7 @@ const App = () => {
       }
     }, [commonStore, userStore]);
 
-    //if(!commonStore.appLoaded) return <LoadingComponent content='Loading app...' />
+    if(!commonStore.appLoaded) return <LoadingComponent content='Loading app...' />
         
     return (
         <>
@@ -57,4 +57,4 @@ const App = () => {
 };
 
 
-export default App;
+export default observer(App);

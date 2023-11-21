@@ -99,7 +99,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import UpdateForm from './UpdateForm';
 import { motion } from "framer-motion";
-
+import { observer } from 'mobx-react-lite';
 const ProductList = () => {
   const [products, setProducts] = useState([]);
   const [showUpdateForm, setShowUpdateForm] = useState(false);
@@ -218,4 +218,4 @@ const ProductList = () => {
   );
 };
 
-export default ProductList;
+export default observer(ProductList);
