@@ -80,7 +80,7 @@
 // import Pizzapng from '../img/pizza.png'
 // import axios from "axios";
 // import { useState, useEffect } from "react";
-
+// import { observer } from "mobx-react-lite";
 
 // const FoodContainer = () => {
 
@@ -106,8 +106,8 @@
 //                 whileHover={{ scale: 1.2 }}
 //               >
 //                 <img
-//                   // src={item?.imageSrc}
-//                   src={Pizzapng}
+//                   src={item?.imageUrl}
+//                   // src={Pizzapng}
 //                   alt=""
 //                   className="w-full h-full object-contain"
 //                 />
@@ -148,8 +148,7 @@
 //   )
 // }
 
-// export default FoodContainer
-
+// export default observer(FoodContainer)
 
 
 import { MdOutlineShoppingCart } from "react-icons/md";
@@ -157,8 +156,8 @@ import { motion } from "framer-motion";
 import NotFound from "../img/NotFound.svg";
 import Pizzapng from '../img/pizza.png';
 import axios from "axios";
-import { useState, useEffect, useContext } from "react";
-import { CartContext, useCart } from "../components/Cart/CartContext";
+import { useState, useEffect } from "react";
+import { useCart } from "../components/Cart/CartContext";
 
 const FoodContainer = () => {
   const [food, setFood] = useState([]);
@@ -177,7 +176,7 @@ const FoodContainer = () => {
       {food && food.length > 0 ? (
         food.map((item) => (
           <div
-            key={item?.id}
+            key={item.id}
             className="w-275 h-[220px] min-w-[350px] md:w-300 md:min-w-[400px] bg-cardOverlay rounded-lg py-2 px-4 my-5 backdrop-blur-lg hover:drop-shadow-lg flex flex-col items-center justify-evenly relative"
           >
             <div className="w-full flex items-center justify-between py-2 ">
@@ -192,12 +191,12 @@ const FoodContainer = () => {
                 />
               </motion.div>
               <motion.div
-                  whileTap={{ scale: 0.75 }}
-                  className="w-8 h-8 rounded-full bg-green-600 flex items-center justify-center cursor-pointer hover:shadow-md -mt-8"
-                  onClick={() => addToCart(item)}  // Add item to cart on click
-                >
-                  <MdOutlineShoppingCart className="text-white" />
-                </motion.div>
+                whileTap={{ scale: 0.75 }}
+                className="w-8 h-8 rounded-full bg-green-600 flex items-center justify-center cursor-pointer hover:shadow-md -mt-8"
+                onClick={() => addToCart(item)}  // Add item to cart on click
+              >
+                <MdOutlineShoppingCart className="text-white" />
+              </motion.div>
             </div>
 
             <div className="w-full flex flex-col items-end justify-end -mt-8 relative">
@@ -228,5 +227,3 @@ const FoodContainer = () => {
 };
 
 export default FoodContainer;
-
-
