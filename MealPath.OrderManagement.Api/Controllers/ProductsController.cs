@@ -3,6 +3,7 @@ using MealPath.OrderManagement.Application.Features.Categories.Commands.UpdateCa
 using MealPath.OrderManagement.Application.Features.Categories.Queries.GetCategoriesList;
 using MealPath.OrderManagement.Application.Features.Categories.Queries.GetCategoryDetails;
 using MealPath.OrderManagement.Application.Features.Products.Commands.CreateProduct;
+using MealPath.OrderManagement.Application.Features.Products.Commands.DeleteProduct;
 using MealPath.OrderManagement.Application.Features.Products.Commands.UpdateProduct;
 using MealPath.OrderManagement.Application.Features.Products.Queries.GetProductDetails;
 using MealPath.OrderManagement.Application.Features.Products.Queries.GetProductsList;
@@ -55,6 +56,23 @@ namespace MealPath.OrderManagement.Api.Controllers
         {
             var response = await _mediator.Send(createProductCommand);
             return Ok(response);
+        }
+
+
+        [HttpDelete("{id}", Name = "DeleteProduct")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
+        public async Task<ActionResult<DeleteProductCommandResponse>> Delete(int id)
+        {
+            var response = await _mediator.Send(new DeleteProductCommand { ProductId = id });
+
+            if (!response.Success)
+            {
+                return NotFound();
+            }
+
+            return NoContent();
         }
 
 
