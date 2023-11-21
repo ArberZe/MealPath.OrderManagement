@@ -54,7 +54,7 @@ namespace MealPath.OrderManagement.Api.Controllers
             {
                 await SetRefreshToken(user);
 
-                return CreateUserObject(user);
+                return await CreateUserObject(user);
             }
             
             return Unauthorized();
@@ -100,7 +100,7 @@ namespace MealPath.OrderManagement.Api.Controllers
                     return BadRequest("A problem occurred while asigning a role to the user");
                 }
 
-                return CreateUserObject(user);
+                return await CreateUserObject(user);
 
             }
 
@@ -129,7 +129,7 @@ namespace MealPath.OrderManagement.Api.Controllers
 
             //if (oldToken != null) oldToken.Revoked = DateTime.UtcNow;
 
-            return CreateUserObject(user);
+            return await CreateUserObject(user);
         }
 
         [Authorize]
@@ -138,7 +138,7 @@ namespace MealPath.OrderManagement.Api.Controllers
         {
             var user = await _userManager.FindByEmailAsync(User.FindFirstValue(ClaimTypes.Email));
             await SetRefreshToken(user);
-            return CreateUserObject(user);
+            return await CreateUserObject(user);
         }
 
         private async Task SetRefreshToken(AppUser user)
@@ -159,13 +159,13 @@ namespace MealPath.OrderManagement.Api.Controllers
             Response.Cookies.Append("refreshToken", refreshToken.Token, cookieOptions);
         }
 
-        private UserDto CreateUserObject(AppUser user)
+        private async Task<UserDto> CreateUserObject(AppUser user)
         {
             return new UserDto
             {
                 DisplayName = user.DisplayName,
                 Image = "",
-                Token = _tokenService.CreateTokem(user),
+                Token = await _tokenService.CreateTokem(user),
                 UserName = user.UserName
             };
         }
