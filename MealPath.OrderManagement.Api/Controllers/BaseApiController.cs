@@ -9,7 +9,7 @@ namespace MealPath.OrderManagement.Api.Controllers
     {
         protected ActionResult HandleResponse<T>(BaseResponse<T> response) where T : class 
         {
-            if (response.Success && response.Value != null)
+            if (response.Success && response.Value != null || response.Value == null)
             {
                 return Ok(response);
             }
