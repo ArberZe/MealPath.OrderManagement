@@ -16,6 +16,7 @@ export default observer(function CategoryDashboard({categories}: Props){
     const {categoryStore} = useStore();
     const {selectedCategory, editMode } = categoryStore;
 
+    
     useEffect(() => {
         categoryStore.loadCategories();
     }, [categoryStore])
