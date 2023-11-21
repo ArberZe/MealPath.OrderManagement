@@ -5,10 +5,12 @@ using MealPath.OrderManagement.Application.Features.Categories.Queries.GetCatego
 using MealPath.OrderManagement.Application.Features.Products.Commands.CreateProduct;
 using MealPath.OrderManagement.Application.Features.Products.Commands.UpdateProduct;
 using MealPath.OrderManagement.Application.Features.Products.Queries.GetProductDetails;
+using MealPath.OrderManagement.Application.Features.Products.Queries.GetProductsByCategory;
 using MealPath.OrderManagement.Application.Features.Products.Queries.GetProductsList;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using ProductListVm = MealPath.OrderManagement.Application.Features.Products.Queries.GetProductsList.ProductListVm;
 
 namespace MealPath.OrderManagement.Api.Controllers
 {
@@ -55,6 +57,15 @@ namespace MealPath.OrderManagement.Api.Controllers
         {
             var response = await _mediator.Send(createProductCommand);
             return Ok(response);
+        }
+
+
+        [HttpGet("ByCategory/{categoryId}", Name = "GetProductsByCategory")]
+        [AllowAnonymous]
+        public async Task<ActionResult<List<ProductListVm>>> GetProductsByCategory(int categoryId)
+        {
+            var dtos = await _mediator.Send(new GetProductsByCategoryQuery { CategoryId = categoryId });
+            return Ok(dtos);
         }
 
 

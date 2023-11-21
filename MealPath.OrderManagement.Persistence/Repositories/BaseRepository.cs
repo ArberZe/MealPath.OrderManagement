@@ -1,3 +1,4 @@
+using System.Linq.Expressions;
 using MealPath.OrderManagement.Application.Contracts.Persistence;
 using Microsoft.EntityFrameworkCore;
 
@@ -46,5 +47,10 @@ public class BaseRepository<T>: IAsyncRepository<T> where T : class
     {
         _dbContext.Set<T>().Remove(entity);
         await _dbContext.SaveChangesAsync();
+    }
+
+    public async Task<IReadOnlyList<T>> ListAsync(Expression<Func<T, bool>> predicate)
+    {
+        return await _dbContext.Set<T>().Where(predicate).ToListAsync();
     }
 }
