@@ -13,6 +13,7 @@ import ModalContainer from './app/common/modals/modalContainer'
 import { ToastContainer } from 'react-toastify';
 import { Container } from "semantic-ui-react";
 import NotFound from "./app/features/errors/NotFound";
+import UserDashboard from "./app/features/Users/Dashboard/UserDashboard";
 import { observer } from "mobx-react-lite";
 
 const App = () => {
@@ -46,6 +47,7 @@ const App = () => {
                             <Route path='/login' Component={LoginForm} />
                             <Route path='/errors' Component={TestErrors} />
                             <Route path='/server-error' Component={ServerError} />
+                            <Route path="/allUsers" Component={UserDashboard} />
                             <Route path='*' Component={NotFound} />
                         </Routes>
                     </main>

@@ -4,6 +4,8 @@ import { User, UserFormValues } from '../models/user';
 import { toast } from 'react-toastify';
 import { useStore } from '../stores/store';
 import { store } from '../stores/store';
+import { UserRole } from '../models/UserRole';
+import { UserList } from '../models/userList';
 
 const sleep = (delay: number) => {
     return new Promise((resolve) => {
@@ -83,7 +85,9 @@ const Account = {
     current: () => requests.get<User>("/account"),
     login: (user: UserFormValues) => requests.post<User>("/account/login", user),
     register: (user: UserFormValues) => requests.post<User>("/account/register", user),
-    refreshToken: () => requests.post<User>("/account/refreshToken", {}) 
+    refreshToken: () => requests.post<User>("/account/refreshToken", {}),
+    addUserToRole: (userRole: UserRole) => requests.post<void>("/account/addUserToRole", userRole),
+    getAllUsers: () => requests.get<UserList[]>("/account/getallusers")
 }
 
 const agent = {

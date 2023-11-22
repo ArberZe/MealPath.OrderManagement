@@ -2,10 +2,17 @@ import { makeAutoObservable, runInAction } from "mobx";
 import agent from "../api/agent";
 import { User, UserFormValues } from "../models/user";
 import { store } from "./store";
+import { UserRole } from "../models/UserRole";
+import { UserList } from "../models/userList";
 
 export default class UserStore {
     user: User | null = null;
     refreshTokenTimeout: any;
+    usersList: UserList[]| null = null; 
+    selectedUser: UserList|undefined = undefined;
+    editMode = false;
+    loading = false;
+    loadingInitial = true;
 
     constructor() {
         makeAutoObservable(this)
@@ -21,7 +28,7 @@ export default class UserStore {
             store.commonStore.setToken(user.token);
             this.startRefreshTokenTimer(user);
             runInAction(() => this.user = user);
-            window.location.href = '/categories';
+            window.location.href = '/';
             store.modalStore.closeModal();
         } catch (error) {
             throw error;
@@ -43,6 +50,17 @@ export default class UserStore {
             this.startRefreshTokenTimer(user);
         } catch (error) {
             console.log(error);
+        }
+    }
+
+    getAllUsersList = async () => {
+        try{
+            const usersList = await agent.Account.getAllUsers();
+            this.usersList = usersList
+            this.setLoadingInitial(false);
+        }catch(error){
+            console.log(error)
+            this.setLoadingInitial(false);
         }
     }
 
@@ -84,5 +102,44 @@ export default class UserStore {
 
     private stopRefreshTokenTimer() {
         clearTimeout(this.refreshTokenTimeout);
+    }
+
+    setLoadingInitial = (state: boolean) => {
+        this.loadingInitial = state;
+    }
+
+    selectUser = (id: string) => {
+        this.selectedUser = this.usersList.find(x => x.userId === id);
+    }
+
+    cancelSelectedUser = () => {
+        this.selectedUser = undefined;
+    } 
+
+    openForm = (id?: string) => {
+        id ? this.selectUser(id) : this.cancelSelectedUser();
+        this.editMode = true;
+    }
+
+    closeForm = () => {
+        this.editMode = false;
+    }
+
+    updateUser = async (userRole: UserRole) => {
+        this.loading = true;
+        try{
+            await agent.Account.addUserToRole(userRole);
+            var user = this.usersList.find(u => u.userId == userRole.userId);
+            this.usersList = [...this.usersList.filter(c => c.userId !== userRole.userId), user];
+            this.selectedUser = user;
+            this.editMode = false;
+            this.loading = false;
+            this.getAllUsersList()
+        }catch(error){
+            console.log(error)
+            runInAction(() => {
+                this.loading = false;
+            })
+        }
     }
 }

@@ -54,7 +54,7 @@ namespace MealPath.OrderManagement.Api.Controllers
             {
                 await SetRefreshToken(user);
 
-                return CreateUserObject(user);
+                return await CreateUserObject(user);
             }
             
             return Unauthorized();
@@ -100,7 +100,7 @@ namespace MealPath.OrderManagement.Api.Controllers
                     return BadRequest("A problem occurred while asigning a role to the user");
                 }
 
-                return CreateUserObject(user);
+                return await CreateUserObject(user);
 
             }
 
@@ -129,7 +129,7 @@ namespace MealPath.OrderManagement.Api.Controllers
 
             //if (oldToken != null) oldToken.Revoked = DateTime.UtcNow;
 
-            return CreateUserObject(user);
+            return await CreateUserObject(user);
         }
 
         [Authorize]
@@ -138,7 +138,7 @@ namespace MealPath.OrderManagement.Api.Controllers
         {
             var user = await _userManager.FindByEmailAsync(User.FindFirstValue(ClaimTypes.Email));
             await SetRefreshToken(user);
-            return CreateUserObject(user);
+            return await CreateUserObject(user);
         }
 
         private async Task SetRefreshToken(AppUser user)
@@ -159,13 +159,63 @@ namespace MealPath.OrderManagement.Api.Controllers
             Response.Cookies.Append("refreshToken", refreshToken.Token, cookieOptions);
         }
 
-        private UserDto CreateUserObject(AppUser user)
+        [HttpPost("addUserToRole")]
+        public async Task<IActionResult> AddUserToRole(AddUserToRoleDto dto)
+        {
+            // Find the user by user ID
+            var user = await _userManager.FindByIdAsync(dto.UserId);
+            if (user == null)
+            {
+                return NotFound($"User with ID {dto.UserId} not found");
+            }
+
+            // Check if the role exists
+            if (!await _roleManager.RoleExistsAsync(dto.RoleName))
+            {
+                return NotFound($"Role {dto.RoleName} not found");
+            }
+
+            // Check if the user is already in the role
+            if (await _userManager.IsInRoleAsync(user, dto.RoleName))
+            {
+                return BadRequest($"User {user.UserName} is already in the role {dto.RoleName}");
+            }
+
+            // Add the user to the role
+            var result = await _userManager.AddToRoleAsync(user, dto.RoleName);
+            if (result.Succeeded)
+            {
+                return Ok($"User {user.UserName} added to role {dto.RoleName} successfully");
+            }
+            else
+            {
+                return BadRequest($"Error adding user to role: {string.Join(", ", result.Errors)}");
+            }
+        }
+
+        [HttpGet("GetAllUsers")]
+        public async Task<IActionResult> GetAllUsers()
+        {
+            var users = _userManager.Users.ToList();
+
+            var usersDto = users.Select(user => new UserListDto
+            {
+                UserId = user.Id.ToString(),
+                UserName = user.UserName,
+                Email = user.Email,
+                Roles = _userManager.GetRolesAsync(user).Result.ToList()
+            }).ToList();
+
+            return Ok(usersDto);
+        }
+
+        private async Task<UserDto> CreateUserObject(AppUser user)
         {
             return new UserDto
             {
                 DisplayName = user.DisplayName,
                 Image = "",
-                Token = _tokenService.CreateTokem(user),
+                Token = await _tokenService.CreateTokem(user),
                 UserName = user.UserName
             };
         }
