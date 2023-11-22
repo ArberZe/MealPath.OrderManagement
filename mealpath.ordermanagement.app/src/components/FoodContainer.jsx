@@ -80,7 +80,7 @@ import NotFound from "../img/NotFound.svg";
 import Pizzapng from '../img/pizza.png'
 import axios from "axios";
 import { useState, useEffect } from "react";
-
+import { observer } from "mobx-react-lite";
 
 const FoodContainer = () => {
 
@@ -148,6 +148,6 @@ const FoodContainer = () => {
   )
 }
 
-export default FoodContainer
+export default observer(FoodContainer)
 
 

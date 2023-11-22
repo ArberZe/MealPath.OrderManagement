@@ -23,6 +23,7 @@ export default class CategoryStore{
                 this.categoryRegistry.set(category.categoryId, category);
             })
             */
+            this.setLoadingInitial(true)
             this.categories = await agent.Categories.list();
             this.setLoadingInitial(false);
         }catch(error){
@@ -61,6 +62,7 @@ export default class CategoryStore{
                 this.selectedCategory = category;
                 this.editMode = false;
                 this.loading = false;
+                this.loadCategories();
             })
         }catch(error){
             console.log(error)

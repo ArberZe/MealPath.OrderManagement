@@ -2,8 +2,7 @@ import React, {useState} from 'react'
 import {GiFullPizza} from 'react-icons/gi'
 import { categories } from "../utils/data";
 import { motion } from "framer-motion";
-import FoodContainer from './FoodContainer';
-import { useStateValue } from '../context/StateProviderr';
+
 
 
 
@@ -14,8 +13,6 @@ const FilterContainer = () => {
   const [filter, setFilter] = useState("experimental");
 
   
-
-  // const [{ foodItems }, dispatch] = useStateValue();
   return (
     <section className="w-full my-6" id="menu">
     <div className="w-full flex flex-col items-center justify-center">
@@ -71,3 +68,7 @@ const FilterContainer = () => {
 }
 
 export default FilterContainer
+
+
+
+
