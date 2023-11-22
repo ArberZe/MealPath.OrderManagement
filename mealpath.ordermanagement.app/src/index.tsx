@@ -8,6 +8,7 @@ import App from './App';
 //import reportWebVitals from './reportWebVitals';
 import { StoreContext, store } from './app/stores/store';
 import { BrowserRouter } from 'react-router-dom';
+import { CartProvider } from './components/Cart/CartContext';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -15,7 +16,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <StoreContext.Provider value={store}>
     <BrowserRouter>
+    <CartProvider>
       <App />
+    </CartProvider>
     </BrowserRouter>
   </StoreContext.Provider>
 );
