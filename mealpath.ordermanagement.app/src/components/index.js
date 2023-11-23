@@ -11,3 +11,4 @@ export { default as MenuContainer} from "./MenuContainer";
 export { default as CartContainer} from "./CartContainer";
 export { default as ProductList} from "./Admin/ProductList";
 export { default as Success} from "./Success";
+export { default as Cancelled} from "./Cancelled";
