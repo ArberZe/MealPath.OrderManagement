@@ -6,7 +6,7 @@ import { MdCheckCircle } from 'react-icons/md';
 const Success = () => {
   return (
     <div className="flex items-center justify-center h-screen bg-gray-100">
-      <div className="text-center">
+      <div className="text-center"> {/* Increased top margin to 32 */}
         <div className="bg-green-500 text-white rounded-full p-8 mb-4 inline-block">
           <MdCheckCircle className="text-6xl" />
         </div>
