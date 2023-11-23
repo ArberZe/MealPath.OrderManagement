@@ -15,6 +15,8 @@ import { Container } from "semantic-ui-react";
 import NotFound from "./app/features/errors/NotFound";
 import UserDashboard from "./app/features/Users/Dashboard/UserDashboard";
 import { observer } from "mobx-react-lite";
+import  Success  from "./components/Success";
+
 
 const App = () => {
     const {commonStore, userStore} = useStore();
@@ -49,6 +51,7 @@ const App = () => {
                             <Route path='/server-error' Component={ServerError} />
                             <Route path="/allUsers" Component={UserDashboard} />
                             <Route path='*' Component={NotFound} />
+                            <Route path='/success' element={<Success/>} />
                         </Routes>
                     </main>
                 </Container>
