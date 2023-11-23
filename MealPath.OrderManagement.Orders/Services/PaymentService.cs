@@ -34,7 +34,7 @@ namespace MealPath.OrderManagement.Orders.Services
                 LineItems = lineItems,
                 Mode = "payment",
                 SuccessUrl = "http://localhost:3000/success",
-                CancelUrl = "http://localhost:3000/cancel",
+                CancelUrl = "http://localhost:3000/cancelled",
             };
 
             var service = new SessionService();

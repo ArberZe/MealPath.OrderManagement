@@ -16,6 +16,8 @@ import NotFound from "./app/features/errors/NotFound";
 import UserDashboard from "./app/features/Users/Dashboard/UserDashboard";
 import { observer } from "mobx-react-lite";
 import  Success  from "./components/Success";
+import  Cancelled  from "./components/Cancelled";
+
 
 
 const App = () => {
@@ -52,6 +54,7 @@ const App = () => {
                             <Route path="/allUsers" Component={UserDashboard} />
                             <Route path='*' Component={NotFound} />
                             <Route path='/success' element={<Success/>} />
+                            <Route path='/cancelled' element={<Cancelled/>} />
                         </Routes>
                     </main>
                 </Container>
