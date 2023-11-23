@@ -75,6 +75,7 @@ const CartContainer = () => {
                 type="button"
                 className="w-full p-2 rounded-full bg-green-600 text-gray-50 text-lg my-2
                   hover:shadow-lg"
+                  onClick={cartStore.checkout}
               >
                 Check out
               </motion.button>

@@ -1,8 +1,6 @@
-export interface Product{
+export default interface CartItem{
     productID: number,
     title: string,
-    //description: string,
-    //categoryId: number,
     price: number,
     imageUrl: string,
     quantity: number

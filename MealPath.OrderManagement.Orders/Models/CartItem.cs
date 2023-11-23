@@ -2,12 +2,10 @@
 {
     public class CartItem
     {
-        public int ProductId { get; set; }
-        public int EditionId { get; set; }
-        public string? ProductTitle { get; set; }
-        public string? EditionName { get; set; }
+        public int ProductID { get; set; }
+        public string? Title { get; set; }
         public decimal Price { get; set; }
-        public string? Image { get; set; }
+        public string? ImageUrl { get; set; }
         public int Quantity { get; set; }
     }
 }

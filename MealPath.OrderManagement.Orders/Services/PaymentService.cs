@@ -23,8 +23,8 @@ namespace MealPath.OrderManagement.Orders.Services
                     Currency = "usd",
                     ProductData = new SessionLineItemPriceDataProductDataOptions
                     {
-                        Name = ci.ProductTitle,
-                        Images = new List<string> { ci.Image }
+                        Name = ci.Title,
+                        Images = new List<string> { ci.ImageUrl }
                     }
                 },
                 Quantity = ci.Quantity,
