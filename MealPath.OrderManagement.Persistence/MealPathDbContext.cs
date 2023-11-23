@@ -42,7 +42,7 @@ namespace MealPath.OrderManagement.Persistence
                 Description = "yes",
                 CategoryId = 1,
                 Price = 4.2,
-                ImageUrl = "test.url",
+                ImageUrl = "https://w7.pngwing.com/pngs/448/578/png-transparent-pizza-margherita-italian-cuisine-chicago-style-pizza-pepperoni-pizza-thumbnail.png",
                 Status = true
 
             });

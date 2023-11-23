@@ -75,14 +75,21 @@
 import { MdOutlineShoppingCart } from "react-icons/md";
 import { motion } from "framer-motion";
 //import {useStateValue} from '../context/StateProvider.js'
-import NotFound from "../img/NotFound.svg";
+//import NotFound from "../img/NotFound.svg";
 //import {food} from "../utils/data.js"
-import Pizzapng from '../img/pizza.png'
+//import Pizzapng from '../img/pizza.png'
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { observer } from "mobx-react-lite";
+import { Product } from "../app/models/Product";
+import { useStore } from "../app/stores/store";
 
 const FoodContainer = () => {
+  const {cartStore} = useStore();
+
+  const addToCart = (product: Product) => { 
+    cartStore.addToCart(product);
+  };
 
   const[food, setfood] = useState([]);
   useEffect(() =>{
@@ -106,8 +113,8 @@ const FoodContainer = () => {
                 whileHover={{ scale: 1.2 }}
               >
                 <img
-                  // src={item?.imageSrc}
-                  src={Pizzapng}
+                  src={item?.imageUrl}
+                  //src={Pizzapng}
                   alt=""
                   className="w-full h-full object-contain"
                 />
@@ -116,6 +123,7 @@ const FoodContainer = () => {
                 whileTap={{ scale: 0.75 }}
                 className="w-8 h-8 rounded-full bg-green-600 flex items-center justify-center cursor-pointer hover:shadow-md -mt-8"
                 // onClick={() => setItems([...cartItems, item])}
+                onClick={() => addToCart(item)}
               >
                 <MdOutlineShoppingCart className="text-white" />
               </motion.div>
@@ -138,7 +146,7 @@ const FoodContainer = () => {
         ))
       ) : (
         <div className="w-full flex flex-col items-center justify-center">
-          <img src={NotFound} className="h-340" alt="food"/>
+          {/* <img src={NotFound} className="h-340" alt="food"/> */}
           <p className="text-xl text-headingColor font-semibold my-2">
             Items Not Available
           </p>

@@ -10,8 +10,6 @@ import LoginForm from '../app/features/Users/LoginForm';
 import RegisterForm from '../app/features/Users/RegisterForm';
 import { observer } from "mobx-react-lite";
 
-
-
 export default observer(function Header() {
   const[isMenu,setIsMenu] = useState(false);
   const[showCart, setShowCart] = useState(false);
@@ -22,6 +20,7 @@ export default observer(function Header() {
     setShowCart(!showCart);
   };
   
+  const {cartStore} = useStore();
 
   return (
     <header className="fixed z-50 w-screen p-3 px-4 md:p-6 md:px-16 bg-primary"> 
@@ -54,7 +53,7 @@ export default observer(function Header() {
                   <MdOutlineShoppingCart  className="text-textColor text-2xl cursor-pointer" onClick={handleCartButtonClick} />
                 
                 <div className="absolute -top-2  -right-2 w-4 h-4 rounded-full bg-cartNumBg flex items-center justify-center">
-                  <p className="text-xs text-white font-semibold">2</p>
+                  <p className="text-xs text-white font-semibold">{cartStore.products.length}</p>
                   {showCart && <CartContainer />}
                 </div>
              </div>

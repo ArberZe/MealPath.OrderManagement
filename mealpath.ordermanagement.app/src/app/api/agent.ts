@@ -6,6 +6,8 @@ import { useStore } from '../stores/store';
 import { store } from '../stores/store';
 import { UserRole } from '../models/UserRole';
 import { UserList } from '../models/userList';
+import CartItem from '../models/cartItem';
+import { Product } from '../models/Product';
 
 const sleep = (delay: number) => {
     return new Promise((resolve) => {
@@ -90,9 +92,14 @@ const Account = {
     getAllUsers: () => requests.get<UserList[]>("/account/getallusers")
 }
 
+const Orders = {
+    checkout: (cartItems: Product[]) => requests.post<string>('/payments/checkout', cartItems)
+}
+
 const agent = {
     Categories,
-    Account
+    Account,
+    Orders
 }
 
 export default agent;
