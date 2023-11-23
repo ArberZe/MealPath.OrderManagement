@@ -1,7 +1,8 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {GiFullPizza} from 'react-icons/gi'
 import { categories } from "../utils/data";
 import { motion } from "framer-motion";
+import { useStore } from '../app/stores/store';
 
 
 
@@ -11,8 +12,21 @@ const FilterContainer = () => {
 
 
   const [filter, setFilter] = useState("experimental");
+  const { categoryStore } = useStore();
+  const [category, setCategory] = useState('');
 
-  
+  useEffect(() => {
+    const loadCategories = async () => {
+      try {
+        await categoryStore.loadCategories();
+      } catch (error) {
+        console.error('Error loading categories:', error);
+      }
+    };
+
+    loadCategories();
+  }, [categoryStore]);
+
   return (
     <section className="w-full my-6" id="menu">
     <div className="w-full flex flex-col items-center justify-center">
