@@ -9,7 +9,7 @@ namespace MealPath.OrderManagement.Orders.Services
     {
         public PaymentService()
         {
-            StripeConfiguration.ApiKey = "sk_test_51OFGaEFKTvOYuneAS7DFE6l8ozsTYCtUIPMVS1wIdOjG1RNQIeoorIJFkDPyAxYYQFzVvIbXHJl7kZRD2YUbl6YU003SJAixEV";
+            StripeConfiguration.ApiKey = "";
         }
 
         public Session CreateCheckoutSession(List<CartItem> cartItems)
