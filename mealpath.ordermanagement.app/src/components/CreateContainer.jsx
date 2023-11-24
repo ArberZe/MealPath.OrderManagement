@@ -9,6 +9,7 @@ import {
   MdDelete,
   MdAttachMoney,
 } from 'react-icons/md';
+import { observer } from 'mobx-react-lite';
 
 const CreateContainer = () => {
   const { categoryStore } = useStore();
@@ -23,16 +24,8 @@ const CreateContainer = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [fields, setFields] = useState(false);
 
-  useEffect(() => {
-    const loadCategories = async () => {
-      try {
-        await categoryStore.loadCategories();
-      } catch (error) {
-        console.error('Error loading categories:', error);
-      }
-    };
-
-    loadCategories();
+  useEffect(() => {    
+    categoryStore.loadCategories();
   }, [categoryStore]);
 
   const handleSubmit = async (e) => {
@@ -215,4 +208,4 @@ const CreateContainer = () => {
   );
 };
 
-export default CreateContainer;
+export default observer (CreateContainer);

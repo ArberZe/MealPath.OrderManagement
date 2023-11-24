@@ -3,6 +3,7 @@ import {GiFullPizza} from 'react-icons/gi'
 import { categories } from "../utils/data";
 import { motion } from "framer-motion";
 import { useStore } from '../app/stores/store';
+import { observer } from 'mobx-react-lite';
 
 
 
@@ -15,16 +16,8 @@ const FilterContainer = () => {
   const { categoryStore } = useStore();
   const [category, setCategory] = useState('');
 
-  useEffect(() => {
-    const loadCategories = async () => {
-      try {
-        await categoryStore.loadCategories();
-      } catch (error) {
-        console.error('Error loading categories:', error);
-      }
-    };
-
-    loadCategories();
+  useEffect(() => {    
+    categoryStore.loadCategories();
   }, [categoryStore]);
 
 
@@ -87,7 +80,7 @@ const FilterContainer = () => {
   )
 }
 
-export default FilterContainer
+export default observer (FilterContainer)
 
 
 
