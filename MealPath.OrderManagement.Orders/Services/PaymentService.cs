@@ -9,7 +9,7 @@ namespace MealPath.OrderManagement.Orders.Services
     {
         public PaymentService()
         {
-            StripeConfiguration.ApiKey = "";
+            StripeConfiguration.ApiKey = "sk_test_51OFezCJHvpKuai9IXZyY2jty7I0SRQz18z0hBrv0MYsfZgl2UdOFtB0bJEojxTE1p0Uq2BZZ40hjJ7IyPnr38j6R007ZIsublE";
         }
 
         public Session CreateCheckoutSession(List<CartItem> cartItems)
@@ -33,8 +33,8 @@ namespace MealPath.OrderManagement.Orders.Services
             {
                 LineItems = lineItems,
                 Mode = "payment",
-                SuccessUrl = "http://localhost:4242/success",
-                CancelUrl = "http://localhost:4242/cancel",
+                SuccessUrl = "http://localhost:3000/success",
+                CancelUrl = "http://localhost:3000/cancelled",
             };
 
             var service = new SessionService();
