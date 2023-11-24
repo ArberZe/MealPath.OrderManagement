@@ -1,7 +1,8 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {GiFullPizza} from 'react-icons/gi'
 import { categories } from "../utils/data";
 import { motion } from "framer-motion";
+import { useStore } from '../app/stores/store';
 
 
 
@@ -11,8 +12,27 @@ const FilterContainer = () => {
 
 
   const [filter, setFilter] = useState("experimental");
+  const { categoryStore } = useStore();
+  const [category, setCategory] = useState('');
 
-  
+  useEffect(() => {
+    const loadCategories = async () => {
+      try {
+        await categoryStore.loadCategories();
+      } catch (error) {
+        console.error('Error loading categories:', error);
+      }
+    };
+
+    loadCategories();
+  }, [categoryStore]);
+
+
+  if (!categoryStore.categories || categoryStore.categories.length === 0) {
+    return null;
+  }
+
+
   return (
     <section className="w-full my-6" id="menu">
     <div className="w-full flex flex-col items-center justify-center">
@@ -23,35 +43,35 @@ const FilterContainer = () => {
       </div>
       <section className="w-full my-6" id="menu">
     <div className="w-full flex items-center justify-start lg:justify-center gap-8 py-6 overflow-x-scroll scrollbar-none">
-          {categories &&
-            categories.map((category) => (
+    {categoryStore.categories &&
+                categoryStore.categories.map((item) => (
               <motion.div
                 whileTap={{ scale: 0.75 }}
-                key={category.id}
+                key={item.categoryId}
                 className={`group ${
-                  filter === category.urlParamName ?  "shadow-lg": ""
+                  filter === item.name ?  "shadow-lg": ""
                 } w-24 min-w-[94px]
                  h-28 cursor-pointer rounded-lg drop-shadow-xl flex flex-col gap-3 items-center justify-center text-center `}
-                onClick={() => setFilter(category.urlParamName)}
+                onClick={() => setFilter(item.name)}
                 >
                 <div
                   className={`w-10 h-10 rounded-full shadow-lg ${
-                    filter === category.urlParamName
+                    filter === item.name
                   } group-hover:bg-white flex items-center justify-center text-red-700`} >
                   <GiFullPizza className={` ${
-                      filter === category.urlParamName
+                      filter === item.name
                         ? "text-green-600"
                         : "text-red-600"
                     } group-hover:text-textColor text-4xl `} />
                 </div>
                 <p
-                  className={`text-sm ${  filter === category.urlParamName
+                  className={`text-sm ${  filter === item.name
                   ? "text-green-600"
                   : "text-red-600"
               }
                    group-hover:text-red-600`}
                 >
-                  {category.name}
+                  {item.name}
                 </p>
               </motion.div>
             ))}

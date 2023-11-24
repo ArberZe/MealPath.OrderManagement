@@ -21,14 +21,13 @@ namespace MealPath.OrderManagement.Api.Controllers
 
         [HttpGet("all", Name = "GetAllCategories")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [Authorize(Roles = "User")]
         public async Task<ActionResult<List<CategoryListVm>>> GetAllCategories()
         {
             var dtos = await _mediator.Send(new GetCategoriesListQuery());
             return Ok(dtos);
         }
 
-        [Authorize]
+        
         [HttpGet("{id}", Name = "GetCategoryById")]
         public async Task<ActionResult<GetCategoryDetailsQueryResponse>> GetProductById(int id)
         {
