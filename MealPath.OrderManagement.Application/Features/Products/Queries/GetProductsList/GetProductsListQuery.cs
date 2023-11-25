@@ -6,12 +6,6 @@ namespace MealPath.OrderManagement.Application.Features.Products.Queries.GetProd
     {
         public int Page { get; set; }
         public int PageSize { get; set; }
-  
-
-        //public GetProductsListQuery(int page, int pageSize)
-        //{
-        //    Page = page;
-        //    PageSize = pageSize;
-        //}
+        
     }
 }

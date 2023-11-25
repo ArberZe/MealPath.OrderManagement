@@ -19,16 +19,15 @@ const FoodContainer = () => {
   };
 
   useEffect(() => {
-    setLoading(true);
+    // setLoading(true);
     axios
       .get(`https://localhost:7155/api/Products/all?page=${page}&pageSize=${pageSize}`)
       .then((response) => {
-        console.log("Raw Response:", response);
+        // console.log("Raw Response:", response);
         const responseData = response.data;
   
         if (Array.isArray(responseData)) {
-          console.log("Mapped Data:", responseData);
-          // Add this code to extract and set the totalProducts count
+          // console.log("Mapped Data:", responseData);
           const totalCountHeader = response.headers['x-total-count'];
           console.log("Total Products Count:", totalCountHeader);
           setTotalProducts(totalCountHeader);
@@ -45,7 +44,15 @@ const FoodContainer = () => {
         setLoading(false);
       });
   }, [page, pageSize]);
-
+  
+  
+  
+  
+  
+  
+  
+  
+  
   const hasNextPage = totalProducts > page * pageSize;
 
   if (loading) {
@@ -123,7 +130,7 @@ const FoodContainer = () => {
           </span>
           <button
             onClick={() => setPage((prevPage) => prevPage + 1)}
-            disabled={!hasNextPage}
+            // disabled={!hasNextPage}
             className="bg-white text-green-500 px-4 py-2 rounded-md cursor-pointer shadow-md"
           >
             Next

@@ -29,19 +29,3 @@ namespace MealPath.OrderManagement.Application.Features.Products.Queries.GetProd
     }
 
 }
-
-
-
-
-
-
-
-//public async Task<List<ProductListVm>> Handle(GetProductsListQuery request, CancellationToken cancellationToken)
-//{
-//    var pageSize = request.Size > 0 ? request.Size : 10;
-//    var pageNumber = request.Page > 0 ? request.Page : 1;
-
-//    var (totalCount, data) = await _productRepository.GetPagedReponseAsync(pageNumber, pageSize);
-
-//    return _mapper.Map<List<ProductListVm>>(data);
-//}
