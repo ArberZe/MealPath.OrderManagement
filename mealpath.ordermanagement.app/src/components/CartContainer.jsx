@@ -17,6 +17,10 @@ const CartContainer = () => {
     setShowCart(false);
   };
 
+  const calculateTotalPrice = () => {
+    return cartStore.products.reduce((total, product) => total + product.price, 0);
+  };
+
   return (
     <div>
       {showCart && (
@@ -56,18 +60,18 @@ const CartContainer = () => {
             <div className="w-full flex-1 bg-cartTotal rounded-t-[2rem] flex flex-col items-center justify-evenly px-8 py-2 ">
               <div className="w-full flex items-center justify-between">
                 <p className="text-gray-400 text-lg">Sub Total</p>
-                <p className="text-gray-400 text-lg">$ 8.5</p>
+                <p className="text-gray-400 text-lg">${calculateTotalPrice().toFixed(2)}</p>
               </div>
-              <div className="w-full flex items-center justify-between">
+              {/* <div className="w-full flex items-center justify-between">
                 <p className="text-gray-400 text-lg">Delivery</p>
-                <p className="text-gray-400 text-lg">$ 1.5</p>
-              </div>
+                <p className="text-gray-400 text-lg">$ 0.00</p>
+              </div> */}
 
               <div className="w-full border-b border-gray-600 my-2 "></div>
 
               <div className="w-full flex items-center justify-between ">
                 <p className=" text-gray-200 text-xl font-semibold">Total</p>
-                <p className=" text-gray-200 text-xl font-semibold">$10.5</p>
+                <p className=" text-gray-200 text-xl font-semibold">${calculateTotalPrice().toFixed(2)}</p>
               </div>
 
               <motion.button
