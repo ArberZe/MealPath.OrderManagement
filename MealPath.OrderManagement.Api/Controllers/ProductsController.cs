@@ -25,14 +25,40 @@ namespace MealPath.OrderManagement.Api.Controllers
             _mediator = mediator;
         }
 
+        //[HttpGet("all", Name = "GetAllProducts")]
+        //[ProducesResponseType(StatusCodes.Status200OK)]
+        //[AllowAnonymous]
+        //public async Task<ActionResult<List<ProductListVm>>> GetAllProducts([FromQuery] int page = 1, [FromQuery] int pageSize = 10)
+        //{
+        //    var products = await _mediator.Send(new GetProductsListQuery());
+
+        //    // Pagination
+        //    var totalCount = products.Count;
+        //    var totalPages = (int)Math.Ceiling(totalCount / (double)pageSize);
+        //    var paginatedProducts = products.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+        //    var response = new
+        //    {
+        //        TotalCount = totalCount,
+        //        TotalPages = totalPages,
+        //        CurrentPage = page,
+        //        PageSize = pageSize,
+        //        Data = paginatedProducts
+        //    };
+
+        //    return Ok(response);
+        //}
+
         [HttpGet("all", Name = "GetAllProducts")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [AllowAnonymous]
-        public async Task<ActionResult<List<ProductListVm>>> GetAllProducts()
+        public async Task<ActionResult<List<ProductListVm>>> GetAllProducts(int page = 1, int pageSize = 10)
         {
-            var dtos = await _mediator.Send(new GetProductsListQuery());
+            var query = new GetProductsListQuery { Page = page, PageSize = pageSize };
+            var dtos = await _mediator.Send(query);
             return Ok(dtos);
         }
+
 
         [AllowAnonymous]
         [HttpGet("{id}", Name = "GetProductById")]
