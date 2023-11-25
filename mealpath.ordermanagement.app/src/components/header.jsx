@@ -42,10 +42,10 @@ export default observer(function Header() {
               transition-all ease-in-out cursor-pointer">Menu</motion.li></Link>
               <Link to={'/'}><motion.li whileTap={{scale: 0.9}} className="text-base text-textColor hover:text-headingColor duration-100
               transition-all ease-in-out cursor-pointer">Home</motion.li></Link>
-               <Link to={'/'}><motion.li whileTap={{scale: 0.9}} className="text-base text-textColor hover:text-headingColor duration-100
-              transition-all ease-in-out cursor-pointer">About Us</motion.li></Link>
-               <Link to={'/'}><motion.li whileTap={{scale: 0.9}} className="text-base text-textColor hover:text-headingColor duration-100
-              transition-all ease-in-out cursor-pointer">Service</motion.li></Link>
+               <Link to={'/productList'}><motion.li whileTap={{scale: 0.9}} className="text-base text-textColor hover:text-headingColor duration-100
+              transition-all ease-in-out cursor-pointer">Product List</motion.li></Link>
+               <Link to={'/categories'}><motion.li whileTap={{scale: 0.9}} className="text-base text-textColor hover:text-headingColor duration-100
+              transition-all ease-in-out cursor-pointer">Categories</motion.li></Link>
              </motion.ul>
 
              <div  className="relative flex items-center justify-center" >
