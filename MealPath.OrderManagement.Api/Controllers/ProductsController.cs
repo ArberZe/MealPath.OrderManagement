@@ -6,6 +6,7 @@ using MealPath.OrderManagement.Application.Features.Products.Commands.CreateProd
 using MealPath.OrderManagement.Application.Features.Products.Commands.DeleteProduct;
 using MealPath.OrderManagement.Application.Features.Products.Commands.UpdateProduct;
 using MealPath.OrderManagement.Application.Features.Products.Queries.GetProductDetails;
+using MealPath.OrderManagement.Application.Features.Products.Queries.GetProductsByCategory;
 using MealPath.OrderManagement.Application.Features.Products.Queries.GetProductsList;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -73,6 +74,16 @@ namespace MealPath.OrderManagement.Api.Controllers
             }
 
             return NoContent();
+        }
+
+
+        [HttpGet("byCategory/{categoryId}", Name = "GetProductsByCategory")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [AllowAnonymous]
+        public async Task<ActionResult<List<ProductListVm>>> GetProductsByCategory(int categoryId)
+        {
+            var dtos = await _mediator.Send(new GetProductsByCategoryQuery { CategoryId = categoryId });
+            return Ok(dtos);
         }
 
 
