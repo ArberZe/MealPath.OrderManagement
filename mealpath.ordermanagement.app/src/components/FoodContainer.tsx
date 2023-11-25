@@ -11,7 +11,8 @@ const FoodContainer = () => {
   const [food, setFood] = useState([]);
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
-  const [loading, setLoading] = useState(true); // Added loading state
+  const [loading, setLoading] = useState(true);
+  const [totalProducts, setTotalProducts] = useState(0);
 
   const addToCart = (product: Product) => {
     cartStore.addToCart(product);
@@ -27,7 +28,12 @@ const FoodContainer = () => {
   
         if (Array.isArray(responseData)) {
           console.log("Mapped Data:", responseData);
-          setFood((prevFood) => [...prevFood, ...responseData]);
+          // Add this code to extract and set the totalProducts count
+          const totalCountHeader = response.headers['x-total-count'];
+          console.log("Total Products Count:", totalCountHeader);
+          setTotalProducts(totalCountHeader);
+  
+          setFood(responseData);
         } else {
           console.error("Invalid response data format:", responseData);
         }
@@ -39,16 +45,13 @@ const FoodContainer = () => {
         setLoading(false);
       });
   }, [page, pageSize]);
-  
-  
-  
-  
-  
-  // Conditional rendering based on the loading state
+
+  const hasNextPage = totalProducts > page * pageSize;
+
   if (loading) {
     return <p>Loading...</p>;
   }
-  console.log("Food Array:", food);
+
   return (
     <div>
       {/* Product Container */}
@@ -120,6 +123,7 @@ const FoodContainer = () => {
           </span>
           <button
             onClick={() => setPage((prevPage) => prevPage + 1)}
+            disabled={!hasNextPage}
             className="bg-white text-green-500 px-4 py-2 rounded-md cursor-pointer shadow-md"
           >
             Next
