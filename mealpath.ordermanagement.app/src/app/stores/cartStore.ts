@@ -15,7 +15,6 @@ export default class CartStore {
     @action
     addToCart(product: Product) {       
         var isProductAdded = false;   
-        console.log(product)
         product.quantity = 1
         this.products.forEach(item => {
             if(product.productID == item.productID){
@@ -38,10 +37,8 @@ export default class CartStore {
     checkout = async () =>{
         //this.loading = true;
         var cartItems = toJS(this.products)
-        console.log(cartItems)
         try{
             var url = await agent.Orders.checkout(cartItems);
-            console.log('url' + url)
             window.location.href = url;
             runInAction(() => {
             //this.loading = false;

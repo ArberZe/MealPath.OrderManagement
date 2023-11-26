@@ -19,7 +19,6 @@ namespace MealPath.OrderManagement.Api.Controllers
             _mediator = mediator;
         }
 
-        [Authorize(Roles ="SuperAdmin, Admin")]
         [HttpGet("all", Name = "GetAllCategories")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<List<CategoryListVm>>> GetAllCategories()

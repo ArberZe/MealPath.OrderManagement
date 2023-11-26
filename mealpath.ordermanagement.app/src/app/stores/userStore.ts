@@ -25,9 +25,7 @@ export default class UserStore {
 
     login = async (creds: UserFormValues) => {
         try {
-            const user = await agent.Account.login(creds);
-            
-            console.log(this.getCurrentUserRoles(user))
+            const user = await agent.Account.login(creds);            
             this.userRoles = this.getCurrentUserRoles(user);
             store.commonStore.setToken(user.token);
             this.startRefreshTokenTimer(user);
@@ -50,6 +48,7 @@ export default class UserStore {
         try {
             const user = await agent.Account.current();
             store.commonStore.setToken(user.token);
+            this.userRoles = this.getCurrentUserRoles(user);
             runInAction(() => this.user = user);
             this.startRefreshTokenTimer(user);
         } catch (error) {
@@ -71,10 +70,11 @@ export default class UserStore {
     register = async (creds: UserFormValues) => {
         try {
             var user = await agent.Account.register(creds);
+            this.userRoles = this.getCurrentUserRoles(user);
             store.commonStore.setToken(user.token);
             this.startRefreshTokenTimer(user);
             runInAction(() => this.user = user);
-            window.location.href = '/categories';
+            window.location.href = '/';
             store.modalStore.closeModal();
         } catch (error) {
             throw error;
