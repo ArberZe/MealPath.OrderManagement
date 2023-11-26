@@ -1,4 +1,5 @@
-﻿using MealPath.OrderManagement.Application.Features.Categories.Commands.CreateCategory;
+﻿using MealPath.OrderManagement.Application.Contracts.Persistence;
+using MealPath.OrderManagement.Application.Features.Categories.Commands.CreateCategory;
 using MealPath.OrderManagement.Application.Features.Categories.Commands.UpdateCategory;
 using MealPath.OrderManagement.Application.Features.Categories.Queries.GetCategoriesList;
 using MealPath.OrderManagement.Application.Features.Categories.Queries.GetCategoryDetails;
@@ -6,7 +7,9 @@ using MealPath.OrderManagement.Application.Features.Products.Commands.CreateProd
 using MealPath.OrderManagement.Application.Features.Products.Commands.DeleteProduct;
 using MealPath.OrderManagement.Application.Features.Products.Commands.UpdateProduct;
 using MealPath.OrderManagement.Application.Features.Products.Queries.GetProductDetails;
+using MealPath.OrderManagement.Application.Features.Products.Queries.GetProductsByCategory;
 using MealPath.OrderManagement.Application.Features.Products.Queries.GetProductsList;
+using MealPath.OrderManagement.Persistence.Repositories;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -18,18 +21,38 @@ namespace MealPath.OrderManagement.Api.Controllers
     public class ProductsController : ControllerBase
     {
         private readonly IMediator _mediator;
+        private readonly IProductRepository _productRepository;
 
-        public ProductsController(IMediator mediator)
+        public ProductsController(IMediator mediator, IProductRepository productRepository)
         {
             _mediator = mediator;
+            _productRepository = productRepository;
         }
+
+        //[HttpGet("all", Name = "GetAllProducts")]
+        //[ProducesResponseType(StatusCodes.Status200OK)]
+        //[AllowAnonymous]
+        //public async Task<ActionResult<List<ProductListVm>>> GetAllProducts(int page = 1, int pageSize = 10)
+        //{
+        //    var query = new GetProductsListQuery { Page = page, PageSize = pageSize };
+        //    var dtos = await _mediator.Send(query);
+        //    return Ok(dtos);
+        //}
 
         [AllowAnonymous]
         [HttpGet("all", Name = "GetAllProducts")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<List<ProductListVm>>> GetAllProducts()
+        public async Task<ActionResult<List<ProductListVm>>> GetAllProducts(int page = 1, int pageSize = 10)
         {
-            var dtos = await _mediator.Send(new GetProductsListQuery());
+            // Make a separate call to get the total count
+            var totalCount = await _productRepository.GetTotalProductCountAsync();
+
+            var query = new GetProductsListQuery { Page = page, PageSize = pageSize };
+            var dtos = await _mediator.Send(query);
+
+            
+            Response.Headers.Add("x-total-count", totalCount.ToString());
+
             return Ok(dtos);
         }
 
@@ -74,6 +97,16 @@ namespace MealPath.OrderManagement.Api.Controllers
             }
 
             return NoContent();
+        }
+
+
+        [HttpGet("byCategory/{categoryId}", Name = "GetProductsByCategory")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [AllowAnonymous]
+        public async Task<ActionResult<List<ProductListVm>>> GetProductsByCategory(int categoryId)
+        {
+            var dtos = await _mediator.Send(new GetProductsByCategoryQuery { CategoryId = categoryId });
+            return Ok(dtos);
         }
 
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using MealPath.OrderManagement.Application.Contracts.Persistence;
@@ -13,6 +14,16 @@ namespace MealPath.OrderManagement.Persistence.Repositories
     {
         public ProductRepository(MealPathDbContext dbContext) : base(dbContext)
         {
+        }
+
+        public async Task<int> GetTotalProductCountAsync()
+        {
+            return await _dbContext.Products.CountAsync();
+        }
+
+        public async Task<IReadOnlyList<Product>> ListAsync(Expression<Func<Product, bool>> predicate)
+        {
+            return await _dbContext.Products.Where(predicate).ToListAsync();
         }
 
         public async Task<IReadOnlyList<Product>> ListProductsByCreatedDateDescending()
