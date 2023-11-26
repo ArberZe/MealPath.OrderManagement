@@ -4,5 +4,8 @@ namespace MealPath.OrderManagement.Application.Features.Products.Queries.GetProd
 {
     public class GetProductsListQuery : IRequest<List<ProductListVm>>
     {
+        public int Page { get; set; }
+        public int PageSize { get; set; }
+        
     }
 }

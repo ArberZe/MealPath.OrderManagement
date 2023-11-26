@@ -6,6 +6,7 @@ using MealPath.OrderManagement.Application.Features.Categories.Queries.GetCatego
 using MealPath.OrderManagement.Application.Features.Products.Commands.CreateProduct;
 using MealPath.OrderManagement.Application.Features.Products.Commands.UpdateProduct;
 using MealPath.OrderManagement.Application.Features.Products.Queries.GetProductDetails;
+using MealPath.OrderManagement.Application.Features.Products.Queries.GetProductsByCategory;
 using MealPath.OrderManagement.Application.Features.Products.Queries.GetProductsList;
 using MealPath.OrderManagement.Domain.Entities;
 
@@ -27,6 +28,7 @@ namespace MealPath.OrderManagement.Application.Profiles
             CreateMap<Product, CreateProductDto>();
             CreateMap<Product, ProductListVm>();
             CreateMap<Product, ProductDetailsVm>();
+            CreateMap<Product, ProductListVmCat>();
 
             CreateMap<UpdateProductCommand, Product>();
         }
