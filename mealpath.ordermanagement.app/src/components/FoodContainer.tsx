@@ -47,11 +47,7 @@ const FoodContainer = () => {
   
   
   
-  
-  
-  
-  
-  
+  const [search, setSearch] = useState('');
   
   const hasNextPage = totalProducts > page * pageSize;
 
@@ -61,10 +57,24 @@ const FoodContainer = () => {
 
   return (
     <div>
+      <input
+        className="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
+        type="text"
+        placeholder="Search..."
+        onChange={(e) => setSearch(e.target.value)}
+      />
+        
+
       {/* Product Container */}
       <div className="w-full flex items-center gap-3 my-12 scroll-smooth overflow-x-hidden flex-wrap justify-center">
+        
         {food && food.length > 0 ? (
-          food.map((item) => (
+          food
+          .filter((item) =>{
+            return search.toLocaleLowerCase() === '' ? item 
+            : item.title.toLowerCase().includes(search)
+          })
+          .map((item) => (
             <div
               key={item?.productID}
               className="w-275 h-[220px] min-w-[350px] md:w-300 md:min-w-[400px] bg-cardOverlay rounded-lg py-2 px-4 my-5 backdrop-blur-lg hover:drop-shadow-lg flex flex-col items-center justify-evenly relative"
