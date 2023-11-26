@@ -17,6 +17,8 @@ import UserDashboard from "./app/features/Users/Dashboard/UserDashboard";
 import { observer } from "mobx-react-lite";
 import  Success  from "./components/Success";
 import  Cancelled  from "./components/Cancelled";
+import RequireAuth from "./components/RequireAuth";
+import UnauthorizedComponent from "./components/notAuthorized";
 
 
 
@@ -32,7 +34,7 @@ const App = () => {
     }, [commonStore, userStore]);
 
     if(!commonStore.appLoaded) return <LoadingComponent content='Loading app...' />
-        
+            
     return (
         <>
         <AnimatePresence /*exitBeforeEnter*/ >
@@ -43,18 +45,34 @@ const App = () => {
                 <Container style={{marginTop:'7em'}}>
                     <main className="mt-14 md:mt-20 px-4 md:px-16 py-4  w-full">
                         <Routes>
+
+
+
+                            {/**Routes accessible Anonymous users */}
                             <Route path="/*" element={<MainContainer />} />
-                            <Route path="/createItem" element={<CreateContainer />} />
-                            <Route path="/productList" element={<Products />} />
                             <Route path="/menu" element={<MenuContainer />} />
-                            <Route path='/categories' Component={CategoryDashboard} />
                             <Route path='/login' Component={LoginForm} />
-                            <Route path='/errors' Component={TestErrors} />
-                            <Route path='/server-error' Component={ServerError} />
-                            <Route path="/allUsers" Component={UserDashboard} />
-                            <Route path='*' Component={NotFound} />
                             <Route path='/success' element={<Success/>} />
                             <Route path='/cancelled' element={<Cancelled/>} />
+                            <Route path='/unauthorized' element={<UnauthorizedComponent />} />
+
+                            <Route path='*' Component={NotFound} />
+                            <Route path='/server-error' Component={ServerError} />
+                            <Route path='/errors' Component={TestErrors} />
+
+                            {/**Routes accessible authenticated users */}
+
+                            {/**Routes accessible only to SuperAdmin and Admin Role */}
+                            <Route element={<RequireAuth allowedRoles={['Admin', 'SuperAdmin']}/>}>
+                                <Route path='/categories' Component={CategoryDashboard} />
+                                <Route path="/productList" element={<Products />} />
+                                <Route path="/createItem" element={<CreateContainer />} />
+                            </Route>
+
+                            {/**Routes accessible only to only SuperAdmin Role */}
+                            <Route element={<RequireAuth allowedRoles={['SuperAdmin']}/>}>
+                                <Route path="/allUsers" Component={UserDashboard} />
+                            </Route>
                         </Routes>
                     </main>
                 </Container>

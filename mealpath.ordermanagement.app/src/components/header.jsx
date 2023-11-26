@@ -9,18 +9,45 @@ import { Button } from 'semantic-ui-react';
 import LoginForm from '../app/features/Users/LoginForm';
 import RegisterForm from '../app/features/Users/RegisterForm';
 import { observer } from "mobx-react-lite";
+import { Dropdown }from 'semantic-ui-react';
 
 export default observer(function Header() {
   const[isMenu,setIsMenu] = useState(false);
   const[showCart, setShowCart] = useState(false);
-  const {userStore, modalStore} = useStore();
+  const {userStore, modalStore, cartStore} = useStore();
   const {userStore: {logout}} = useStore();
 
+
+  
   const handleCartButtonClick = () => {
     setShowCart(!showCart);
   };
   
-  const {cartStore} = useStore();
+  //const {cartStore} = useStore();
+
+  let adminOptions = [
+    { key: 'option1', text: 'products', value: '/productlist' },
+    { key: 'option2', text: 'categories', value: '/categories' },
+  ];
+
+  let userRoles = [];
+  
+  const renderLinkBasedOnRole = () => {
+    if(userRoles.find(role => role == 'SuperAdmin')){
+      adminOptions.push({ key: 'option3', text: 'users', value: '/allusers' });
+    }
+  }
+
+  if(userStore.isLoggedIn){
+    userRoles = userStore.getCurrentUserRoles(userStore.user);
+    renderLinkBasedOnRole()
+  }
+
+  
+
+  const handleDropdownChange = (e, { value }) => {
+    window.location.href = value
+  };
 
   return (
     <header className="fixed z-50 w-screen p-3 px-4 md:p-6 md:px-16 bg-primary"> 
@@ -42,10 +69,16 @@ export default observer(function Header() {
               transition-all ease-in-out cursor-pointer">Menu</motion.li></Link>
               <Link to={'/'}><motion.li whileTap={{scale: 0.9}} className="text-base text-textColor hover:text-headingColor duration-100
               transition-all ease-in-out cursor-pointer">Home</motion.li></Link>
-               <Link to={'/productList'}><motion.li whileTap={{scale: 0.9}} className="text-base text-textColor hover:text-headingColor duration-100
-              transition-all ease-in-out cursor-pointer">Product List</motion.li></Link>
-               <Link to={'/categories'}><motion.li whileTap={{scale: 0.9}} className="text-base text-textColor hover:text-headingColor duration-100
-              transition-all ease-in-out cursor-pointer">Categories</motion.li></Link>
+               <Link to={'/'}><motion.li whileTap={{scale: 0.9}} className="text-base text-textColor hover:text-headingColor duration-100
+              transition-all ease-in-out cursor-pointer">About Us</motion.li></Link>
+               <Link to={'/'}><motion.li whileTap={{scale: 0.9}} className="text-base text-textColor hover:text-headingColor duration-100
+              transition-all ease-in-out cursor-pointer">Service</motion.li></Link>
+              {userRoles.find(role => ['Admin', 'SuperAdmin'].includes(role)) && 
+                <Dropdown text='Manage' 
+                  options={adminOptions}  
+                  onChange={handleDropdownChange}
+                />
+              }
              </motion.ul>
 
              <div  className="relative flex items-center justify-center" >
