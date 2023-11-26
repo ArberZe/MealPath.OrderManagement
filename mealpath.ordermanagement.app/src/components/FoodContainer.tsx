@@ -45,12 +45,10 @@ const FoodContainer = () => {
       });
   }, [page, pageSize]);
   
-  
-  
   const [search, setSearch] = useState('');
   
   const hasNextPage = totalProducts > page * pageSize;
-
+console.log(food)
   if (loading) {
     return <p>Loading...</p>;
   }

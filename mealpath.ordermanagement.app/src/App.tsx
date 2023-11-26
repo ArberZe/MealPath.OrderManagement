@@ -15,6 +15,7 @@ import { Container } from "semantic-ui-react";
 import NotFound from "./app/features/errors/NotFound";
 import UserDashboard from "./app/features/Users/Dashboard/UserDashboard";
 import { observer } from "mobx-react-lite";
+import {FoodContainer1} from "./components";
 
 const App = () => {
     const {commonStore, userStore} = useStore();
@@ -44,6 +45,7 @@ const App = () => {
                             <Route path="/productList" element={<Products />} />
                             <Route path="/menu" element={<MenuContainer />} />
                             <Route path='/categories' Component={CategoryDashboard} />
+                            <Route path='/foodContainer' element={<FoodContainer1/>} />
                             <Route path='/login' Component={LoginForm} />
                             <Route path='/errors' Component={TestErrors} />
                             <Route path='/server-error' Component={ServerError} />
