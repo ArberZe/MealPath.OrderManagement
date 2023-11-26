@@ -4,9 +4,10 @@ import { User, UserFormValues } from "../models/user";
 import { store } from "./store";
 import { UserRole } from "../models/UserRole";
 import { UserList } from "../models/userList";
-
+import { Role } from "../models/Role";
 export default class UserStore {
     user: User | null = null;
+    userRoles: Role [] = []
     refreshTokenTimeout: any;
     usersList: UserList[]| null = null; 
     selectedUser: UserList|undefined = undefined;
@@ -25,6 +26,9 @@ export default class UserStore {
     login = async (creds: UserFormValues) => {
         try {
             const user = await agent.Account.login(creds);
+            
+            console.log(this.getCurrentUserRoles(user))
+            this.userRoles = this.getCurrentUserRoles(user);
             store.commonStore.setToken(user.token);
             this.startRefreshTokenTimer(user);
             runInAction(() => this.user = user);
@@ -141,5 +145,27 @@ export default class UserStore {
                 this.loading = false;
             })
         }
+    }
+
+    getCurrentUserRoles = (user: User) => {
+        const decodedJwtData = this.decodeJwt(user);
+        var roles = [];
+        if(Array.isArray(decodedJwtData.role)){
+            decodedJwtData.role.forEach(element => {
+                roles.push(element)
+            });
+        }else{
+            roles.push(decodedJwtData.role)
+        }
+        return roles;
+    }
+
+    decodeJwt = (user: User) => {
+        let jwtData = user.token.split('.')[1]
+        let decodedJwtJsonData = window.atob(jwtData)
+        let decodedJwtData = JSON.parse(decodedJwtJsonData)
+            //console.log(decodedJwtData)
+            //console.log(decodedJwtData.role)
+        return decodedJwtData;
     }
 }

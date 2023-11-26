@@ -19,6 +19,7 @@ namespace MealPath.OrderManagement.Api.Controllers
             _mediator = mediator;
         }
 
+        [Authorize(Roles ="SuperAdmin, Admin")]
         [HttpGet("all", Name = "GetAllCategories")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<List<CategoryListVm>>> GetAllCategories()
@@ -27,7 +28,7 @@ namespace MealPath.OrderManagement.Api.Controllers
             return Ok(dtos);
         }
 
-        
+        [Authorize(Roles = "SuperAdmin, Admin")]
         [HttpGet("{id}", Name = "GetCategoryById")]
         public async Task<ActionResult<GetCategoryDetailsQueryResponse>> GetProductById(int id)
         {
@@ -43,6 +44,7 @@ namespace MealPath.OrderManagement.Api.Controllers
             return HandleResponse(await _mediator.Send(updateProductCommand));
         }
 
+        [Authorize(Roles = "SuperAdmin, Admin")]
         [HttpPost(Name = "AddCategory")]
         public async Task<ActionResult<CreateCategoryCommandResponse>> Create([FromBody] CreateCategoryCommand createCategoryCommand)
         {

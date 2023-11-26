@@ -24,9 +24,9 @@ namespace MealPath.OrderManagement.Api.Controllers
             _mediator = mediator;
         }
 
+        [AllowAnonymous]
         [HttpGet("all", Name = "GetAllProducts")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [AllowAnonymous]
         public async Task<ActionResult<List<ProductListVm>>> GetAllProducts()
         {
             var dtos = await _mediator.Send(new GetProductsListQuery());
@@ -41,6 +41,7 @@ namespace MealPath.OrderManagement.Api.Controllers
             return Ok(response);
         }
 
+        [Authorize(Roles ="SuperAdmin, Admin")]
         [HttpPut(Name = "UpdateProduct")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -58,7 +59,7 @@ namespace MealPath.OrderManagement.Api.Controllers
             return Ok(response);
         }
 
-
+        [Authorize(Roles ="SuperAdmin, Admin")]
         [HttpDelete("{id}", Name = "DeleteProduct")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
