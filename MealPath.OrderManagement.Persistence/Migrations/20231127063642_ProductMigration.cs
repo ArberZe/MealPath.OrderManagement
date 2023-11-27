@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MealPath.OrderManagement.Persistence.Migrations
 {
-    public partial class ProductsMigration : Migration
+    public partial class ProductMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -34,7 +34,7 @@ namespace MealPath.OrderManagement.Persistence.Migrations
             migrationBuilder.InsertData(
                 table: "Products",
                 columns: new[] { "ProductID", "CategoryId", "CreatedBy", "CreatedDate", "Description", "ImageUrl", "LastModifiedBy", "LastModifiedDate", "Price", "Status", "Title" },
-                values: new object[] { 1, 1, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "yes", "test.url", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 4.2000000000000002, true, "Pizza Margarita" });
+                values: new object[] { 1, 1, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "yes", "https://w7.pngwing.com/pngs/448/578/png-transparent-pizza-margherita-italian-cuisine-chicago-style-pizza-pepperoni-pizza-thumbnail.png", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 4.2000000000000002, true, "Pizza Margarita" });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

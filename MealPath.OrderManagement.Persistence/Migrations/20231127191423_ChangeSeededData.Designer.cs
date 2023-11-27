@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MealPath.OrderManagement.Persistence.Migrations
 {
     [DbContext(typeof(MealPathDbContext))]
-    [Migration("20231027065644_ProductsMigration")]
-    partial class ProductsMigration
+    [Migration("20231127191423_ChangeSeededData")]
+    partial class ChangeSeededData
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -57,14 +57,14 @@ namespace MealPath.OrderManagement.Persistence.Migrations
                             CategoryId = 1,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Ushqim"
+                            Name = "Italian style"
                         },
                         new
                         {
                             CategoryId = 2,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Pije"
+                            Name = "New york style"
                         });
                 });
 
@@ -116,8 +116,8 @@ namespace MealPath.OrderManagement.Persistence.Migrations
                             ProductID = 1,
                             CategoryId = 1,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "yes",
-                            ImageUrl = "test.url",
+                            Description = "this is a desc",
+                            ImageUrl = "https://w7.pngwing.com/pngs/448/578/png-transparent-pizza-margherita-italian-cuisine-chicago-style-pizza-pepperoni-pizza-thumbnail.png",
                             LastModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Price = 4.2000000000000002,
                             Status = true,

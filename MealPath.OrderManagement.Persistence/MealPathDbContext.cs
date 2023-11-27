@@ -26,20 +26,20 @@ namespace MealPath.OrderManagement.Persistence
             modelBuilder.Entity<Category>().HasData(new Category
             {
                 CategoryId = 1,
-                Name = "Ushqim"
+                Name = "Italian style"
             });
 
             modelBuilder.Entity<Category>().HasData(new Category
             {
                 CategoryId = 2,
-                Name = "Pije"
+                Name = "New york style"
             });
 
             modelBuilder.Entity<Product>().HasData(new Product
             {
                 ProductID = 1,
                 Title = "Pizza Margarita",
-                Description = "yes",
+                Description = "this is a desc",
                 CategoryId = 1,
                 Price = 4.2,
                 ImageUrl = "https://w7.pngwing.com/pngs/448/578/png-transparent-pizza-margherita-italian-cuisine-chicago-style-pizza-pepperoni-pizza-thumbnail.png",

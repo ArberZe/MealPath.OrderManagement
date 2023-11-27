@@ -1,4 +1,4 @@
-import { makeAutoObservable, runInAction } from "mobx";
+import { makeAutoObservable, runInAction, toJS } from "mobx";
 import { Category } from "../models/category";
 import agent from "../api/agent";
 
@@ -56,7 +56,11 @@ export default class CategoryStore{
     createCategory = async (category: Category) =>{
         this.loading = true;
         try{
-            await agent.Categories.create(category);
+            var response = await agent.Categories.create(category);
+            var createdCategory = response.data;
+            // console.log(createdCategory['value'].categoryId)
+            category.categoryId = createdCategory['value'].categoryId;
+            //console.log('created categoru',createdCategory);
             runInAction(() => {
                 this.categories.push(category);
                 this.selectedCategory = category;

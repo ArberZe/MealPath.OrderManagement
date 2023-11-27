@@ -4,6 +4,7 @@ using MealPath.OrderManagement.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MealPath.OrderManagement.Persistence.Migrations
 {
     [DbContext(typeof(MealPathDbContext))]
-    partial class MealPathDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231127063642_ProductMigration")]
+    partial class ProductMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -55,14 +57,14 @@ namespace MealPath.OrderManagement.Persistence.Migrations
                             CategoryId = 1,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Italian style"
+                            Name = "Ushqim"
                         },
                         new
                         {
                             CategoryId = 2,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "New york style"
+                            Name = "Pije"
                         });
                 });
 
@@ -114,7 +116,7 @@ namespace MealPath.OrderManagement.Persistence.Migrations
                             ProductID = 1,
                             CategoryId = 1,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "this is a desc",
+                            Description = "yes",
                             ImageUrl = "https://w7.pngwing.com/pngs/448/578/png-transparent-pizza-margherita-italian-cuisine-chicago-style-pizza-pepperoni-pizza-thumbnail.png",
                             LastModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Price = 4.2000000000000002,
