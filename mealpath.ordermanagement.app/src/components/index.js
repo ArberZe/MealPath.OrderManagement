@@ -7,6 +7,7 @@ export { default as Login } from "./Login";
 export { default as Signup } from "./Signup";
 export { default as FilterContainer} from "./FilterContainer";
 export { default as FoodContainer} from "./FoodContainer";
+export { default as FoodContainer1} from "./FoodContainer1";
 export { default as MenuContainer} from "./MenuContainer";
 export { default as CartContainer} from "./CartContainer";
 export { default as ProductList} from "./Admin/ProductList";

@@ -15,12 +15,11 @@ import { Container } from "semantic-ui-react";
 import NotFound from "./app/features/errors/NotFound";
 import UserDashboard from "./app/features/Users/Dashboard/UserDashboard";
 import { observer } from "mobx-react-lite";
+import {FoodContainer1} from "./components";
 import  Success  from "./components/Success";
 import  Cancelled  from "./components/Cancelled";
 import RequireAuth from "./components/RequireAuth";
 import UnauthorizedComponent from "./components/notAuthorized";
-
-
 
 const App = () => {
     const {commonStore, userStore} = useStore();
@@ -51,6 +50,8 @@ const App = () => {
                             {/**Routes accessible Anonymous users */}
                             <Route path="/*" element={<MainContainer />} />
                             <Route path="/menu" element={<MenuContainer />} />
+                            <Route path='/categories' Component={CategoryDashboard} />
+                            <Route path='/foodContainer' element={<FoodContainer1/>} />
                             <Route path='/login' Component={LoginForm} />
                             <Route path='/success' element={<Success/>} />
                             <Route path='/cancelled' element={<Cancelled/>} />

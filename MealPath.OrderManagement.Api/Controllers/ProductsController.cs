@@ -7,8 +7,10 @@ using MealPath.OrderManagement.Application.Features.Products.Commands.CreateProd
 using MealPath.OrderManagement.Application.Features.Products.Commands.DeleteProduct;
 using MealPath.OrderManagement.Application.Features.Products.Commands.UpdateProduct;
 using MealPath.OrderManagement.Application.Features.Products.Queries.GetProductDetails;
+using MealPath.OrderManagement.Application.Features.Products.Queries.GetProductList1;
 using MealPath.OrderManagement.Application.Features.Products.Queries.GetProductsByCategory;
 using MealPath.OrderManagement.Application.Features.Products.Queries.GetProductsList;
+
 using MealPath.OrderManagement.Persistence.Repositories;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -39,22 +41,40 @@ namespace MealPath.OrderManagement.Api.Controllers
         //    return Ok(dtos);
         //}
 
-        [AllowAnonymous]
-        [HttpGet("all", Name = "GetAllProducts")]
+        [HttpGet("allProducts", Name = "GetAllProductss")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<List<ProductListVm>>> GetAllProducts(int page = 1, int pageSize = 10)
+        public async Task<ActionResult<List<ProductListVm1>>> GetAllProducts1()
         {
-            // Make a separate call to get the total count
-            var totalCount = await _productRepository.GetTotalProductCountAsync();
-
-            var query = new GetProductsListQuery { Page = page, PageSize = pageSize };
-            var dtos = await _mediator.Send(query);
-
-            
-            Response.Headers.Add("x-total-count", totalCount.ToString());
-
+            var dtos = await _mediator.Send(new GetProductListQuery1());
             return Ok(dtos);
         }
+
+        [HttpGet("all", Name = "GetAllProducts")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [AllowAnonymous]
+        public async Task<ActionResult<List<ProductListVm>>> GetAllProducts(int? page = null, int? pageSize = null)
+        {
+            if (page.HasValue && pageSize.HasValue)
+            {
+                var totalCount = await _productRepository.GetTotalProductCountAsync();
+
+                var query = new GetProductsListQuery { Page = page.Value, PageSize = pageSize.Value };
+                var dtos = await _mediator.Send(query);
+
+                Response.Headers.Add("x-total-count", totalCount.ToString());
+
+                return Ok(dtos);
+            }
+            else
+            {
+                // If page and pageSize are not provided, return all products
+                var query = new GetProductsListQuery();
+                var dtos = await _mediator.Send(query);
+
+                return Ok(dtos);
+            }
+        }
+
 
         [AllowAnonymous]
         [HttpGet("{id}", Name = "GetProductById")]
