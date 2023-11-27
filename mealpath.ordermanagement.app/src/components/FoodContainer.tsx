@@ -29,7 +29,7 @@ const FoodContainer = () => {
         if (Array.isArray(responseData)) {
           // console.log("Mapped Data:", responseData);
           const totalCountHeader = response.headers['x-total-count'];
-          console.log("Total Products Count:", totalCountHeader);
+          //console.log("Total Products Count:", totalCountHeader);
           setTotalProducts(totalCountHeader);
   
           setFood(responseData);

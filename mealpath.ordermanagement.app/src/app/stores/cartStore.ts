@@ -8,14 +8,13 @@ import agent from '../api/agent';
 export default class CartStore {
     products: Product[] = [];
 
-  constructor(){
-    makeAutoObservable(this)
-  }
+    constructor(){
+        makeAutoObservable(this)
+    }
 
-  @action
-  addToCart(product: Product) {       
+    @action
+    addToCart(product: Product) {       
         var isProductAdded = false;   
-        console.log(product)
         product.quantity = 1
         this.products.forEach(item => {
             if(product.productID == item.productID){
@@ -28,29 +27,39 @@ export default class CartStore {
             this.products.push(product);
             toast.success('product was added sucessfully')
         }
-  }
+    }
 
-  @action
-  clearCart() {
-    this.products = [];
-  }
+    @action
+    clearCart() {
+        this.products = [];
+    }
 
-  checkout = async () =>{
-    //this.loading = true;
-    var cartItems = toJS(this.products)
-    console.log(cartItems)
-    try{
-        var url = await agent.Orders.checkout(cartItems);
-        console.log('url' + url)
-        window.location.href = url;
-        runInAction(() => {
+    checkout = async () =>{
+        //this.loading = true;
+        var cartItems = toJS(this.products)
+        try{
+            var url = await agent.Orders.checkout(cartItems);
+            window.location.href = url;
+            runInAction(() => {
             //this.loading = false;
         })
-    }catch(error){
-        console.log(error)
-        runInAction(() => {
+        }catch(error){
+            console.log(error)
+            runInAction(() => {
             //this.loading = false;
         })
     }
   }
+
+    getCartItems = () => {
+        //console.log('products raw', this.products)
+        //console.log('toJS products', toJS(this.products))
+        return toJS(this.products)
+        //return toJS(this.products)
+    }
+
+    isCartEmpty = () => {
+        const cartItems = toJS(this.products)
+        return cartItems.length == 0 ? true: false; 
+    }
 }

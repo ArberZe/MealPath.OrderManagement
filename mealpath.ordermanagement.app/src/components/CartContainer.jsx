@@ -8,19 +8,18 @@ import { useState } from "react";
 import { useStore } from "../app/stores/store";
 import { observer } from "mobx-react-lite";
 import CartItemsList from "./CartItemsList";
+import { Button } from "semantic-ui-react";
 
 const CartContainer = () => {
   const [showCart, setShowCart] = useState(true);
-  const {cartStore} = useStore();
+  const {cartStore, userStore} = useStore();
 
   const handleCartClose = () => {
     setShowCart(false);
   };
-
   const calculateTotalPrice = () => {
     return cartStore.products.reduce((total, product) => total + product.price, 0);
   };
-
   return (
     <div>
       {showCart && (
@@ -45,6 +44,7 @@ const CartContainer = () => {
             <motion.p
               whileTap={{ scale: 0.75 }}
               className="flex items-center gap-2 p-1 px-2 my-2 bg-gray-100 rounded-md hover:shadow-md  cursor-pointer text-textColor text-base"
+              onClick={cartStore.clearCart}
             >
               Clear <RiRefreshFill />{" "}
             </motion.p>
@@ -74,15 +74,37 @@ const CartContainer = () => {
                 <p className=" text-gray-200 text-xl font-semibold">${calculateTotalPrice().toFixed(2)}</p>
               </div>
 
-              <motion.button
-                whileTap={{ scale: 0.8 }}
-                type="button"
-                className="w-full p-2 rounded-full bg-green-600 text-gray-50 text-lg my-2
-                  hover:shadow-lg"
-                  onClick={cartStore.checkout}
-              >
-                Check out
-              </motion.button>
+              {!userStore.isLoggedIn ? (
+                <>
+                <motion.button
+                  whileTap={{ scale: 0.8 }}
+                  type="button"
+                  className="w-full p-2 rounded-full bg-green-600 text-gray-50 text-lg my-2
+                    hover:shadow-lg"
+                    onClick={()=>window.location.href = '/login'}
+                >
+                  Login
+                </motion.button>
+                
+                </>
+              ) : 
+              (
+                <>
+                <>
+                  <motion.button
+                    whileTap={{ scale: 0.8 }}
+                    type="button"
+                    className="w-full p-2 rounded-full bg-green-600 text-gray-50 text-lg my-2
+                      hover:shadow-lg"
+                      onClick={cartStore.checkout}
+                  >
+                    Check out
+                  </motion.button>
+                </>
+                </>
+              )
+              }
+              
             </div>
           </div>
         </motion.div>

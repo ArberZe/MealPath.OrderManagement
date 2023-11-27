@@ -31,8 +31,8 @@ namespace MealPath.OrderManagement.Api.Controllers
             _roleManager = roleManager;
         }
 
-        [HttpPost]
-        [Route("roles/add")]
+        [Authorize(Roles = "SuperAdmin")]
+        [HttpPost("roles/add")]
         public async Task<IActionResult> CreateRole(CreateRoleDto request)
         {
             var appRole = new AppRole { Name = request.RoleName };
@@ -159,6 +159,7 @@ namespace MealPath.OrderManagement.Api.Controllers
             Response.Cookies.Append("refreshToken", refreshToken.Token, cookieOptions);
         }
 
+        [Authorize(Roles = "SuperAdmin")]
         [HttpPost("addUserToRole")]
         public async Task<IActionResult> AddUserToRole(AddUserToRoleDto dto)
         {
@@ -193,6 +194,7 @@ namespace MealPath.OrderManagement.Api.Controllers
             }
         }
 
+        [Authorize(Roles = "SuperAdmin")]
         [HttpGet("GetAllUsers")]
         public async Task<IActionResult> GetAllUsers()
         {
