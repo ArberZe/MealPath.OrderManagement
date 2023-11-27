@@ -50,7 +50,6 @@ const App = () => {
                             {/**Routes accessible Anonymous users */}
                             <Route path="/*" element={<MainContainer />} />
                             <Route path="/menu" element={<MenuContainer />} />
-                            <Route path='/categories' Component={CategoryDashboard} />
                             <Route path='/foodContainer' element={<FoodContainer1/>} />
                             <Route path='/login' Component={LoginForm} />
                             <Route path='/success' element={<Success/>} />
