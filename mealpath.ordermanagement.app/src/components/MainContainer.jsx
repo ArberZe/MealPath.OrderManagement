@@ -3,7 +3,7 @@ import HomeContainer from './HomeContainer';
 import FilterContainer from './FilterContainer';
 import FoodContainer from './FoodContainer';
 import FoodContainer1 from './FoodContainer1';
-// import CartContainer from './CartContainer';
+import { observer } from "mobx-react-lite";
 
 
 
@@ -13,10 +13,8 @@ const MainContainer = () => {
   return (
     <div className='w-full h-auto flex flex-col items-center justify-center'>
       <HomeContainer/>
-     <FilterContainer/>
+     {/* <FilterContainer/> */}
      <FoodContainer1/>
-
-    {/* <CartContainer/> */}
     
      
     
@@ -29,4 +27,4 @@ const MainContainer = () => {
 }
 
 
-export default MainContainer;
+export default observer (MainContainer);
