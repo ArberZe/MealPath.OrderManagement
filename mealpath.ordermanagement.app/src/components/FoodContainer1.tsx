@@ -6,6 +6,7 @@ import { observer } from "mobx-react-lite";
 import { Product } from "../app/models/Product";
 import { useStore } from "../app/stores/store";
 import { GiFullPizza } from "react-icons/gi";
+import { categories } from "../utils/data";
 
 const FoodContainer1 = () => {
   const { cartStore, categoryStore } = useStore();
@@ -22,6 +23,7 @@ const FoodContainer1 = () => {
         const response = await axios.get(`https://localhost:7155/api/Products/allProducts`);
         const responseData = response.data;
         setFood(responseData);
+        categoryStore.loadCategories()
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
