@@ -1,6 +1,7 @@
 import React from "react";
 import FilterContainer from "./FilterContainer";
 import FoodContainer from "./FoodContainer";
+import FoodContainer1 from "./FoodContainer1";
 
 
 const MenuContainer = () => {
@@ -9,7 +10,7 @@ const MenuContainer = () => {
   return (
     <section>
     <FilterContainer/>
-    <FoodContainer/>
+    <FoodContainer1/>
     </section>
   )
 }
