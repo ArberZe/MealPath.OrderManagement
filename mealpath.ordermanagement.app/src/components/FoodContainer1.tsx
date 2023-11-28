@@ -50,6 +50,10 @@ const FoodContainer1 = () => {
     setSelectedCategory(categoryId === selectedCategory ? null : categoryId);
   };
 
+  const handleClearFilter = () => {
+    setSelectedCategory(null);
+  };
+
   return (
     <div>
       <section className="w-full my-6" id="menu">
@@ -64,41 +68,78 @@ const FoodContainer1 = () => {
           <section className="w-full my-6" id="menu">
             <div className="w-full flex items-center justify-start lg:justify-center gap-8 py-6 overflow-x-scroll scrollbar-none">
               {categoryStore.categories && categoryStore.categories.length > 0 && (
-                categoryStore.categories.map((item) => (
+                <>
+                  {/* Button for "All" */}
                   <motion.div
                     whileTap={{ scale: 0.75 }}
-                    key={item.categoryId}
                     className={`group ${
-                      selectedCategory === item.categoryId ? "shadow-lg" : ""
+                      selectedCategory === null ? "shadow-lg" : ""
                     } w-24 min-w-[94px] h-28 cursor-pointer rounded-lg drop-shadow-xl flex flex-col gap-3 items-center justify-center text-center `}
-                    onClick={() => handleCategoryFilter(item.categoryId)}
+                    onClick={handleClearFilter}
                   >
                     <div
                       className={`w-10 h-10 rounded-full shadow-lg ${
-                        selectedCategory === item.categoryId
+                        selectedCategory === null
                           ? "bg-white"
-                          : "bg-white-700"
+                          : "bg-white"
                       } flex items-center justify-center text-red-700`}
                     >
                       <GiFullPizza
                         className={`${
-                          selectedCategory === item.categoryId
+                          selectedCategory === null
                             ? "text-green-600"
                             : "text-red-600"
-                        } group-hover:text-textColor text-4xl `}
+                        } text-4xl`}
                       />
                     </div>
                     <p
                       className={`text-sm ${
-                        selectedCategory === item.categoryId
+                        selectedCategory === null
                           ? "text-green-600"
                           : "text-red-600"
                       }`}
                     >
-                      {item.name}
+                      All
                     </p>
                   </motion.div>
-                ))
+
+                  {/* Other category buttons */}
+                  {categoryStore.categories.map((item) => (
+                    <motion.div
+                      whileTap={{ scale: 0.75 }}
+                      key={item.categoryId}
+                      className={`group ${
+                        selectedCategory === item.categoryId ? "shadow-lg" : ""
+                      } w-24 min-w-[94px] h-28 cursor-pointer rounded-lg drop-shadow-xl flex flex-col gap-3 items-center justify-center text-center `}
+                      onClick={() => handleCategoryFilter(item.categoryId)}
+                    >
+                      <div
+                        className={`w-10 h-10 rounded-full shadow-lg ${
+                          selectedCategory === item.categoryId
+                            ? "bg-white"
+                            : "bg-white"
+                        } flex items-center justify-center text-red-700`}
+                      >
+                        <GiFullPizza
+                          className={`${
+                            selectedCategory === item.categoryId
+                              ? "text-green-600"
+                              : "text-red-600"
+                          } text-4xl`}
+                        />
+                      </div>
+                      <p
+                        className={`text-sm ${
+                          selectedCategory === item.categoryId
+                            ? "text-green-600"
+                            : "text-red-600"
+                        }`}
+                      >
+                        {item.name}
+                      </p>
+                    </motion.div>
+                  ))}
+                </>
               )}
             </div>
             <div className="w-full flex items-center gap-3 my-12 scroll-smooth overflow-x-hidden flex-wrap justify-center">
