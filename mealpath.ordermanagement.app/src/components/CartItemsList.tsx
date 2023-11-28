@@ -37,13 +37,13 @@ export default observer(function CartItemsList({products}: Props){
               {/* button section */}
               <div className="group flex items-center gap-2 ml-auto cursor-auto">
                 <motion.div whileTap={{ scale: 0.75 }}>
-                  <BiMinus className="text-gray-50" />
+                  <BiMinus onClick={() => cartStore.decrementtItemQuantity(item.productID)} className="text-gray-50" />
                 </motion.div>
                 <p className="w-5 h-5 rounded-sm bg-cartBg text-green-50 flex items-center justify-center">
-                  1
+                  {item.quantity}
                 </p>
                 <motion.div whileTap={{ scale: 0.75 }}>
-                  <BiPlus className="text-gray-50" />
+                  <BiPlus onClick={() => cartStore.incrementItemQuantity(item.productID)} className="text-gray-50" />
                 </motion.div>
               </div>
             </>
