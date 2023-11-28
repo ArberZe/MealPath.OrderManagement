@@ -2,11 +2,11 @@
 import { action, makeAutoObservable, runInAction, toJS } from 'mobx';
 import { Product } from '../models/Product';
 import { toast } from 'react-toastify';
-import CartItem from '../models/cartItem';
 import agent from '../api/agent';
 
 export default class CartStore {
     products: Product[] = [];
+    loading: boolean = false;
 
     constructor(){
         makeAutoObservable(this)
@@ -34,19 +34,30 @@ export default class CartStore {
         this.products = [];
     }
 
+    incrementItemQuantity(id: number){
+        var product = this.products.find(prod => prod.productID == id)
+        product.quantity++
+    }
+
+    decrementtItemQuantity(id: number){
+        var product = this.products.find(prod => prod.productID == id)
+        product.quantity--
+    }
+
     checkout = async () =>{
         //this.loading = true;
+        this.loading = true;
         var cartItems = toJS(this.products)
         try{
             var url = await agent.Orders.checkout(cartItems);
             window.location.href = url;
             runInAction(() => {
-            //this.loading = false;
+            this.loading = false;
         })
         }catch(error){
             console.log(error)
             runInAction(() => {
-            //this.loading = false;
+            this.loading = false;
         })
     }
   }
@@ -60,6 +71,7 @@ export default class CartStore {
 
     isCartEmpty = () => {
         const cartItems = toJS(this.products)
-        return cartItems.length == 0 ? true: false; 
+        var res = cartItems.length == 0 ? true: false; 
+        return true;
     }
 }

@@ -10,7 +10,7 @@ import LoginForm from '../app/features/Users/LoginForm';
 import RegisterForm from '../app/features/Users/RegisterForm';
 import { observer } from "mobx-react-lite";
 import { Dropdown }from 'semantic-ui-react';
-
+import { toJS } from 'mobx';
 export default observer(function Header() {
   const[isMenu,setIsMenu] = useState(false);
   const[showCart, setShowCart] = useState(false);

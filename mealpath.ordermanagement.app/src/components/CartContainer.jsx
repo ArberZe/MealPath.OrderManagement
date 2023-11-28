@@ -8,7 +8,9 @@ import { useState } from "react";
 import { useStore } from "../app/stores/store";
 import { observer } from "mobx-react-lite";
 import CartItemsList from "./CartItemsList";
-import { Button } from "semantic-ui-react";
+import { Button, Message, MessageContent, MessageItem } from "semantic-ui-react";
+import { toJS } from "mobx";
+import LoadingComponent from "../app/layout/LoadingComponent";
 
 const CartContainer = () => {
   const [showCart, setShowCart] = useState(true);
@@ -22,8 +24,9 @@ const CartContainer = () => {
     setShowCart(false);
   };
   const calculateTotalPrice = () => {
-    return cartStore.products.reduce((total, product) => total + product.price, 0);
+    return cartStore.products.reduce((total, product,) => total + product.price * product.quantity, 0);
   };
+
   return (
     <div>
       {showCart && (
@@ -56,9 +59,19 @@ const CartContainer = () => {
           {/* bottom - pjesa poshte */}
           <div className="w-full h-full bg-cartBg rounded-t-[2rem] flex flex-col ">
             {/* Cart Items section */}
-            <div className="w-full h-340 md:h-42 px-6 py-10 flex flex-col gap-3 overflow-y-scroll scrollbar-none ">
-              <CartItemsList products={cartStore.products}/>
-            </div>
+            {cartStore.loading ? (
+              <LoadingComponent />
+            ): (
+              <div className="w-full h-340 md:h-42 px-6 py-10 flex flex-col gap-3 overflow-y-scroll scrollbar-none ">
+              {toJS(cartStore.products).length == 0 ? 
+                (
+                  <Message color='black'>Cart is empty</Message>
+                ):(
+                <CartItemsList products={cartStore.products}/>
+                )
+              }
+              </div>
+            )}
 
             {/* Total Section */}
             <div className="w-full flex-1 bg-cartTotal rounded-t-[2rem] flex flex-col items-center justify-evenly px-8 py-2 ">
@@ -101,6 +114,7 @@ const CartContainer = () => {
                     className="w-full p-2 rounded-full bg-green-600 text-gray-50 text-lg my-2
                       hover:shadow-lg"
                       onClick={cartStore.checkout}
+                      disabled = {toJS(cartStore.products).length == 0? true: false}
                   >
                     Check out
                   </motion.button>
