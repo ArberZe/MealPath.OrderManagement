@@ -159,6 +159,67 @@ namespace MealPath.OrderManagement.Api.Controllers
             Response.Cookies.Append("refreshToken", refreshToken.Token, cookieOptions);
         }
 
+        [HttpGet("getUserRoles")]
+        public async Task<ActionResult<List<UserRolesDto>>> GetUserRoles(string userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                return NotFound($"User with ID {userId} not found");
+            }
+
+            var response = new List<UserRolesDto>();
+
+            foreach (var role in _roleManager.Roles)
+            {
+                var userRole = new UserRolesDto
+                {
+                    RoleId = role.Id.ToString(),
+                    RoleName = role.Name
+                };
+
+                if (await _userManager.IsInRoleAsync(user, role.Name))
+                {
+                    userRole.IsSelected = true;
+                }
+                else
+                {
+                    userRole.IsSelected = false;
+                }
+
+                response.Add(userRole);
+            }
+
+            return response;
+        }
+
+        [HttpPost("manageUserRoles")]
+        public async Task<ActionResult> ManageUserRoles(List<UserRolesDto> model, string userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                return NotFound($"User with ID {userId} not found");
+            }
+
+            var roles = await _userManager.GetRolesAsync(user);
+            var result = await _userManager.RemoveFromRolesAsync(user, roles);
+
+            if (!result.Succeeded)
+            {
+                return BadRequest("Failed to remove user from roles!");
+            }
+
+            result = await _userManager.AddToRolesAsync(user, model.Where(x => x.IsSelected).Select(y => y.RoleName));
+
+            if (!result.Succeeded)
+            {
+                return BadRequest("Failed to add user to roles!");
+            }
+
+            return Ok("Role changed successfully!");
+        }
+
         [Authorize(Roles = "SuperAdmin")]
         [HttpPost("addUserToRole")]
         public async Task<IActionResult> AddUserToRole(AddUserToRoleDto dto)
@@ -195,7 +256,7 @@ namespace MealPath.OrderManagement.Api.Controllers
         }
 
         [Authorize(Roles = "SuperAdmin")]
-        [HttpGet("GetAllUsers")]
+        [HttpGet("getAllUsers")]
         public async Task<IActionResult> GetAllUsers()
         {
             var users = _userManager.Users.ToList();
