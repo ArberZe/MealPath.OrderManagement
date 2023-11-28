@@ -8,6 +8,7 @@ import { UserRole } from '../models/UserRole';
 import { UserList } from '../models/userList';
 import CartItem from '../models/cartItem';
 import { Product } from '../models/Product';
+import { UserRoles } from '../models/UserRoles';
 
 const sleep = (delay: number) => {
     return new Promise((resolve) => {
@@ -89,7 +90,9 @@ const Account = {
     register: (user: UserFormValues) => requests.post<User>("/account/register", user),
     refreshToken: () => requests.post<User>("/account/refreshToken", {}),
     addUserToRole: (userRole: UserRole) => requests.post<void>("/account/addUserToRole", userRole),
-    getAllUsers: () => requests.get<UserList[]>("/account/getallusers")
+    getAllUsers: () => requests.get<UserList[]>("/account/getallusers"),
+    getUserRoles: (id: string) => requests.get<UserRoles[]>("/account/getUserRoles/?userId="+id),
+    manageUserRoles: (id: string, userRoles: UserRoles) => requests.post<void>("/account/manageUserRoles?userId="+id, userRoles)
 }
 
 const Orders = {

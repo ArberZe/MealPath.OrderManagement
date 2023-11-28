@@ -17,7 +17,7 @@ export default function UsersList({users}: Props){
                 <List.Item>
                     <Image avatar src='https://react.semantic-ui.com/images/avatar/small/christian.jpg' />
                     <List.Content>
-                        <List.Header>{user.email} | {user.userName}</List.Header>
+                        <List.Header>{user.email}</List.Header>
                         <b>Roles</b>: {user.roles && user.roles.join(', ')}
                     </List.Content>
                         <Button onClick={() => userStore.selectUser(user.userId)} floated="right" content="View" color="blue" />

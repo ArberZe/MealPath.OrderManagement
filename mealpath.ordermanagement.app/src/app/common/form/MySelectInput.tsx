@@ -7,6 +7,7 @@ interface Props {
     name: string,
     options: any,
     label?: string
+    value?: string
 }
 
 export default function MySelectInput(props: Props){
@@ -18,7 +19,7 @@ export default function MySelectInput(props: Props){
             <Select
                 clearable
                 options={props.options}
-                value={field.value || null}
+                value={props.value || null}
                 onChange={(e, d) => helpers.setValue(d.value)}
                 onBlur={() => helpers.setTouched(true)}
                 placeholder={props.placeholder}

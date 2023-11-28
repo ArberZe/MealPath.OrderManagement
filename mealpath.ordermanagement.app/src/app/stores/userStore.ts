@@ -1,16 +1,19 @@
-import { makeAutoObservable, runInAction } from "mobx";
+import { makeAutoObservable, runInAction, toJS } from "mobx";
 import agent from "../api/agent";
 import { User, UserFormValues } from "../models/user";
 import { store } from "./store";
 import { UserRole } from "../models/UserRole";
 import { UserList } from "../models/userList";
 import { Role } from "../models/Role";
+import { UserRoles } from "../models/UserRoles";
+import { toast } from "react-toastify";
 export default class UserStore {
     user: User | null = null;
     userRoles: Role [] = []
     refreshTokenTimeout: any;
     usersList: UserList[]| null = null; 
     selectedUser: UserList|undefined = undefined;
+    selectedUserRoles: UserRoles[] | undefined = undefined;
     editMode = false;
     loading = false;
     loadingInitial = true;
@@ -112,8 +115,12 @@ export default class UserStore {
         this.loadingInitial = state;
     }
 
-    selectUser = (id: string) => {
+    selectUser = async (id: string) => {
         this.selectedUser = this.usersList.find(x => x.userId === id);
+        var roles = await agent.Account.getUserRoles(id);
+        runInAction(()=>{
+            this.selectedUserRoles = toJS(roles);
+        })
     }
 
     cancelSelectedUser = () => {
@@ -139,6 +146,25 @@ export default class UserStore {
             this.editMode = false;
             this.loading = false;
             this.getAllUsersList()
+        }catch(error){
+            console.log(error)
+            runInAction(() => {
+                this.loading = false;
+            })
+        }
+    }
+
+    manageUserRoles = async (model) => {
+        this.loading = true;
+        try{
+            await agent.Account.manageUserRoles(model.userId, model.userRoles)
+            var user = this.usersList.find(u => u.userId == model.userId);
+            this.usersList = [...this.usersList.filter(c => c.userId !== model.userId), user];
+            this.selectedUser = user;
+            this.editMode = false;
+            this.loading = false;
+            this.getAllUsersList()
+            toast.success('Role changed successfully')
         }catch(error){
             console.log(error)
             runInAction(() => {
