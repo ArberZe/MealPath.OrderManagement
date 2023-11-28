@@ -14,6 +14,10 @@ const CartContainer = () => {
   const [showCart, setShowCart] = useState(true);
   const {cartStore, userStore} = useStore();
 
+  const handleClearCart = () => {
+    cartStore.clearCart();
+  };
+
   const handleCartClose = () => {
     setShowCart(false);
   };
@@ -44,7 +48,7 @@ const CartContainer = () => {
             <motion.p
               whileTap={{ scale: 0.75 }}
               className="flex items-center gap-2 p-1 px-2 my-2 bg-gray-100 rounded-md hover:shadow-md  cursor-pointer text-textColor text-base"
-              onClick={cartStore.clearCart}
+              onClick={handleClearCart}
             >
               Clear <RiRefreshFill />{" "}
             </motion.p>
