@@ -21,7 +21,7 @@ namespace MealPath.OrderManagement.Persistence.Repositories
             return await _dbContext.Products.CountAsync();
         }
 
-        public async Task<IReadOnlyList<Product>> ListAsync(Expression<Func<Product, bool>> predicate)
+        public new async Task<IReadOnlyList<Product>> ListAsync(Expression<Func<Product, bool>> predicate)
         {
             return await _dbContext.Products.Where(predicate).ToListAsync();
         }

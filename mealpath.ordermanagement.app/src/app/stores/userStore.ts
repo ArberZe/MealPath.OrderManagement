@@ -61,8 +61,15 @@ export default class UserStore {
 
     getAllUsersList = async () => {
         try{
-            const usersList = await agent.Account.getAllUsers();
-            this.usersList = usersList
+            const users = await agent.Account.getAllUsers();
+            var usersRes = [];
+            users.map((user)=>{
+                user = user['result']
+                
+                console.log(user)
+                usersRes.push(user)
+            })
+            this.usersList = usersRes;
             this.setLoadingInitial(false);
         }catch(error){
             console.log(error)

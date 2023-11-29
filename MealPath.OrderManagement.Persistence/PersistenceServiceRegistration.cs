@@ -12,7 +12,7 @@ namespace MealPath.OrderManagement.Persistence
         {
             services.AddDbContext<MealPathDbContext>(options =>
                 {
-                    options.UseSqlServer(configuration["ConnectionStrings:DefaultConnection"]);
+                    options.UseSqlServer(configuration["ConnectionStrings:DefaultConnection"] ?? "");
                 }
             );
 

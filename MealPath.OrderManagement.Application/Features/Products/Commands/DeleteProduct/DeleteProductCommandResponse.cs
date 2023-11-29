@@ -12,6 +12,6 @@ namespace MealPath.OrderManagement.Application.Features.Products.Commands.Delete
     public class DeleteProductResult
     {
         public bool Success { get; set; }
-        public string Message { get; set; }
+        public string Message { get; set; } = string.Empty;
     }
 }

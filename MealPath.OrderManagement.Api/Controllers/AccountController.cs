@@ -36,7 +36,7 @@ namespace MealPath.OrderManagement.Api.Controllers
         public async Task<IActionResult> CreateRole(CreateRoleDto request)
         {
             var appRole = new AppRole { Name = request.RoleName };
-            var createRole = await _roleManager.CreateAsync(appRole);
+            await _roleManager.CreateAsync(appRole);
 
             return Ok(new { message = "role created succesfully" });
         }
@@ -259,14 +259,14 @@ namespace MealPath.OrderManagement.Api.Controllers
         [HttpGet("getAllUsers")]
         public async Task<IActionResult> GetAllUsers()
         {
-            var users = _userManager.Users.ToList();
+            var users = await _userManager.Users.ToListAsync();
 
-            var usersDto = users.Select(user => new UserListDto
+            var usersDto = users.Select(async user => new UserListDto
             {
                 UserId = user.Id.ToString(),
                 UserName = user.UserName,
                 Email = user.Email,
-                Roles = _userManager.GetRolesAsync(user).Result.ToList()
+                Roles = (await _userManager.GetRolesAsync(user)).ToList()
             }).ToList();
 
             return Ok(usersDto);
