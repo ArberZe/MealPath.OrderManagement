@@ -4,6 +4,7 @@ using MealPath.OrderManagement.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MealPath.OrderManagement.Persistence.Migrations
 {
     [DbContext(typeof(MealPathDbContext))]
-    partial class MealPathDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231128145036_addProducts")]
+    partial class addProducts
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -112,26 +114,14 @@ namespace MealPath.OrderManagement.Persistence.Migrations
                         new
                         {
                             ProductID = 1,
-                            CategoryId = 2,
+                            CategoryId = 1,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "tomato sauce, fresh mozzarella cheese, basil leaves, and sometimes grated Parmesan cheese",
-                            ImageUrl = "https://mealpathapp.blob.core.windows.net/mealpath/pizza5.png",
+                            Description = "this is a desc",
+                            ImageUrl = "https://w7.pngwing.com/pngs/448/578/png-transparent-pizza-margherita-italian-cuisine-chicago-style-pizza-pepperoni-pizza-thumbnail.png",
                             LastModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Price = 4.2000000000000002,
                             Status = true,
-                            Title = "Pizza Margherita"
-                        },
-                        new
-                        {
-                            ProductID = 2,
-                            CategoryId = 1,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "onions, anchovies, tomatoes, herbs and strong cheese such as caciocavallo and toma.",
-                            ImageUrl = "https://mealpathapp.blob.core.windows.net/mealpath/pizza9.png",
-                            LastModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Price = 7.5,
-                            Status = true,
-                            Title = "Pizza Sicilian"
+                            Title = "Pizza Margarita"
                         });
                 });
 #pragma warning restore 612, 618
