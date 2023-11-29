@@ -259,7 +259,7 @@ namespace MealPath.OrderManagement.Api.Controllers
         [HttpGet("getAllUsers")]
         public async Task<IActionResult> GetAllUsers()
         {
-            var users = await _userManager.Users.ToListAsync();
+            var users = _userManager.Users.ToList();
 
             var usersDto = users.Select(async user => new UserListDto
             {
