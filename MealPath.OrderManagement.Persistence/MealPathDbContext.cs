@@ -14,10 +14,15 @@ namespace MealPath.OrderManagement.Persistence
 
         public DbSet<Product> Products { get; set; } = default!;
 
-        
-        
-
         public DbSet<Category> Categories { get; set; } = default!;
+
+        public DbSet<Customer> Customers { get; set; } = default!;
+        public DbSet<Loan> Loans { get; set; } = default!;
+
+        public DbSet<Author> Authors {  get; set; } = default!;
+        public DbSet<Book> Books { get; set; } = default!;
+        public DbSet<Applicant> Applicants { get; set; } = default!;
+        public DbSet<MealPath.OrderManagement.Domain.Entities.Application> Applications { get; set; } = default!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

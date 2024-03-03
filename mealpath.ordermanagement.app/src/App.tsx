@@ -20,6 +20,18 @@ import  Success  from "./components/Success";
 import  Cancelled  from "./components/Cancelled";
 import RequireAuth from "./components/RequireAuth";
 import UnauthorizedComponent from "./components/notAuthorized";
+import CreateCustomer from "./examComponents/createCustomer";
+import ReadCustomersList from "./examComponents/readCustomersList";
+import CreateLoan from "./examComponents/createLoan";
+import ReadLoansList from "./examComponents/readLoansList";
+import CreateAuthor from "./examComponents2/createAuthor";
+import CreateBook from "./examComponents2/createBook";
+import ReadBooksList from "./examComponents2/readBooksList";
+import ReadAuthorsList from "./examComponents2/readAuthorsList";
+import CreateApplicant from "./examComponents3/createApplicant";
+import ReadApplicantsList from "./examComponents3/readApplicantsList";
+import CreateApplications from "./examComponents3/createApplication";
+import ReadApplicationsList from "./examComponents3/readApplicationsList";
 
 const App = () => {
     const {commonStore, userStore} = useStore();
@@ -56,9 +68,24 @@ const App = () => {
                             <Route path='/cancelled' element={<Cancelled/>} />
                             <Route path='/unauthorized' element={<UnauthorizedComponent />} />
 
-                            <Route path='*' Component={NotFound} />
+                            <Route path='/createCustomer' Component={CreateCustomer} />
+                            <Route path='/customers' Component={ReadCustomersList} />
+                            <Route path='/createLoan' Component={CreateLoan} />
+                            <Route path='/loans' Component={ReadLoansList} />
+
                             <Route path='/server-error' Component={ServerError} />
                             <Route path='/errors' Component={TestErrors} />
+
+                            <Route path='/createAuthor' Component={CreateAuthor} />
+                            <Route path='/createBook' Component={CreateBook} />
+                            <Route path='/books' Component={ReadBooksList} />
+                            <Route path='/authors' Component={ReadAuthorsList} />
+
+                            <Route path='/createApplicant' Component={CreateApplicant} />
+                            <Route path='/applicants' Component={ReadApplicantsList} />
+
+                            <Route path='/createApplications' Component={CreateApplications} />
+                            <Route path='/applications' Component={ReadApplicationsList} />
 
                             {/**Routes accessible authenticated users */}
 
@@ -73,6 +100,7 @@ const App = () => {
                             <Route element={<RequireAuth allowedRoles={['SuperAdmin']}/>}>
                                 <Route path="/allUsers" Component={UserDashboard} />
                             </Route>
+                            <Route path='*' element={<NotFound />} />
                         </Routes>
                     </main>
                 </Container>
