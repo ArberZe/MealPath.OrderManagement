@@ -25,6 +25,7 @@ const App = () => {
     const {commonStore, userStore} = useStore();
 
     useEffect(() => {
+        document.title = 'MealPath Pizza';
       if(commonStore.token){
         userStore.getUser().finally(() => commonStore.setAppLoaded());
       }else{
@@ -48,7 +49,7 @@ const App = () => {
 
 
                             {/**Routes accessible Anonymous users */}
-                            <Route path="/*" element={<MainContainer />} />
+                            <Route path="/" element={<MainContainer />} />
                             <Route path="/menu" element={<MenuContainer />} />
                             <Route path='/foodContainer' element={<FoodContainer1/>} />
                             <Route path='/login' Component={LoginForm} />
