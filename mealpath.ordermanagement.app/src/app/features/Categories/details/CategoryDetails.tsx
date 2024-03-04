@@ -1,9 +1,10 @@
 import React from "react";
 import { Card, Button } from 'semantic-ui-react'; 
 import { useStore } from "../../../stores/store";
-import LoadingComponent from "../../../../layout/LoadingComponent";
+import LoadingComponent from "../../../layout/LoadingComponent";
+import { observer } from "mobx-react-lite";
 
-export default function CategoryDetails(){
+export default observer(function CategoryDetails(){
     const {categoryStore} = useStore();
     const { selectedCategory: category, openForm, cancelSelectedCategory } = categoryStore;
 
@@ -30,4 +31,4 @@ export default function CategoryDetails(){
         </Card.Content>
       </Card>
     )
-}
+})

@@ -12,7 +12,7 @@ namespace MealPath.OrderManagement.Persistence
         {
             services.AddDbContext<MealPathDbContext>(options =>
                 {
-                    options.UseSqlServer(configuration["ConnectionStrings:DefaultConnection"]);
+                    options.UseSqlServer(configuration["ConnectionStrings:DefaultConnection"] ?? "");
                 }
             );
 
@@ -22,6 +22,8 @@ namespace MealPath.OrderManagement.Persistence
             services.AddScoped(typeof(IAsyncRepository<>), typeof(BaseRepository<>));
 
             services.AddScoped<ICategoryRepository, CategoryRepository>();
+
+            services.AddScoped<IProductRepository, ProductRepository>();
 
             return services;
         }

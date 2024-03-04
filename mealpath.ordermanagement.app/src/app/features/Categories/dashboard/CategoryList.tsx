@@ -13,6 +13,7 @@ export default function CategoryList({categories}: Props){
     return (
         <Segment>
             <List celled>
+            <h3>Category list</h3>
                 {categories.map(category => (
                     <List.Item key={category.categoryId}>
                         <List.Content>

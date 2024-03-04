@@ -10,6 +10,13 @@ namespace MealPath.OrderManagement.Persistence
         {
         }
 
+
+
+        public DbSet<Product> Products { get; set; } = default!;
+
+        
+        
+
         public DbSet<Category> Categories { get; set; } = default!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -19,13 +26,37 @@ namespace MealPath.OrderManagement.Persistence
             modelBuilder.Entity<Category>().HasData(new Category
             {
                 CategoryId = 1,
-                Name = "Ushqim"
+                Name = "Italian style"
             });
 
             modelBuilder.Entity<Category>().HasData(new Category
             {
                 CategoryId = 2,
-                Name = "Pije"
+                Name = "New york style"
+            });
+
+            modelBuilder.Entity<Product>().HasData(new Product
+            {
+                ProductID = 1,
+                Title = "Pizza Margherita",
+                Description = "tomato sauce, fresh mozzarella cheese, basil leaves, and sometimes grated Parmesan cheese",
+                CategoryId = 2,
+                Price = 4.2,
+                ImageUrl = "https://mealpathapp.blob.core.windows.net/mealpath/pizza5.png",
+                Status = true
+
+            });
+
+            modelBuilder.Entity<Product>().HasData(new Product
+            {
+                ProductID = 2,
+                Title = "Pizza Sicilian",
+                Description = "onions, anchovies, tomatoes, herbs and strong cheese such as caciocavallo and toma.",
+                CategoryId = 1,
+                Price = 7.5,
+                ImageUrl = "https://mealpathapp.blob.core.windows.net/mealpath/pizza9.png",
+                Status = true
+
             });
         }
 

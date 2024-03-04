@@ -10,7 +10,7 @@ namespace MealPath.OrderManagement.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CategoryController : ControllerBase
+    public class CategoryController : BaseApiController
     {
         private readonly IMediator _mediator;
 
@@ -21,19 +21,17 @@ namespace MealPath.OrderManagement.Api.Controllers
 
         [HttpGet("all", Name = "GetAllCategories")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [AllowAnonymous]
         public async Task<ActionResult<List<CategoryListVm>>> GetAllCategories()
         {
             var dtos = await _mediator.Send(new GetCategoriesListQuery());
             return Ok(dtos);
         }
 
-        [AllowAnonymous]
+        [Authorize(Roles = "SuperAdmin, Admin")]
         [HttpGet("{id}", Name = "GetCategoryById")]
         public async Task<ActionResult<GetCategoryDetailsQueryResponse>> GetProductById(int id)
         {
-            var response = await _mediator.Send(new GetCategoryDetailsQuery() { CategoryId = id }); 
-            return Ok(response);
+            return HandleResponse(await _mediator.Send(new GetCategoryDetailsQuery() { CategoryId = id }));
         }
 
         [HttpPut(Name = "UpdateCategory")]
@@ -42,15 +40,14 @@ namespace MealPath.OrderManagement.Api.Controllers
         [ProducesDefaultResponseType]
         public async Task<ActionResult<UpdateCategoryCommandResponse>> Update([FromBody] UpdateCategoryCommand updateProductCommand)
         {
-            var response = await _mediator.Send(updateProductCommand);
-            return Ok(response);
+            return HandleResponse(await _mediator.Send(updateProductCommand));
         }
 
+        [Authorize(Roles = "SuperAdmin, Admin")]
         [HttpPost(Name = "AddCategory")]
         public async Task<ActionResult<CreateCategoryCommandResponse>> Create([FromBody] CreateCategoryCommand createCategoryCommand)
         {
-            var response = await _mediator.Send(createCategoryCommand);
-            return Ok(response);
+            return HandleResponse(await _mediator.Send(createCategoryCommand));
         }
     }
 }
