@@ -1,5 +1,5 @@
 # Product Name
-> MealPath is a order management system for italian style Pizza
+> MealPath is an order management system for italian style Pizza
 
 [![NPM Version][npm-image]][npm-url]
 
@@ -44,8 +44,8 @@ To be able to run this project you should have these technologies installed on y
 - npm: preferably: 10.2.4: https://docs.npmjs.com/downloading-and-installing-node-js-and-npm
 ## Meta
 
-Arber Zeka – [@YourLinkedin](https://www.linkedin.com/in/arber-zeka-742452220/) 
-Erion Ismajli [@YourLinkedin](https://www.linkedin.com/in/erion-ismajli/)
+Arber Zeka – [@ArberZeka](https://www.linkedin.com/in/arber-zeka-742452220/) 
+Erion Ismajli [@ErionIsmajli](https://www.linkedin.com/in/erion-ismajli/)
 
 <!-- Markdown link & img dfn's -->
 [npm-image]: https://img.shields.io/npm/v/datadog-metrics.svg?style=flat-square
