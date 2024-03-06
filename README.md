@@ -2,6 +2,7 @@
 > MealPath is an order management system for italian style pizza and not only
 
 [![.NET 6](https://img.shields.io/badge/.NET-6-512BD4.svg)](https://dotnet.microsoft.com/)
+[![TypeScript 3.9.10](https://img.shields.io/badge/TypeScript-3.9.10-007ACC.svg)](https://www.typescriptlang.org/)
 [![React 18](https://img.shields.io/badge/React-18-61DAFB.svg)](https://reactjs.org/)
 [![Node.js 20.11.x](https://img.shields.io/badge/Node.js-20.11.x-339933.svg)](https://nodejs.org/)
 [![npm 10.2.x](https://img.shields.io/badge/npm-10.2.x-CB3837.svg)](https://www.npmjs.com/)
@@ -34,7 +35,8 @@ steps to run react project:
 - ```sh
   npm install
   ```
-- then run the command : ```sh
+- then run the command :
+- ```sh
   npm start
   ```
 - React Project should run seamlessly
