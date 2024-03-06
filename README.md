@@ -1,7 +1,9 @@
 # Product Name
-> MealPath is an order management system for italian style Pizza
+> MealPath is an order management system for italian style pizza and not only
 
-[![NPM Version][npm-image]][npm-url]
+[![10.2.4][npm-image]][https://www.npmjs.com/]
+[![.NET 6](https://img.shields.io/badge/.NET-6-512BD4.svg)](https://dotnet.microsoft.com/)
+
 
 MealPath is a faculty course project, it is built as an online pizza ordering web app, with different roles for content management.
 MealPath is build using Asp.Net core framework for backend(API project) and a React App for front end which consumes the API.
@@ -49,5 +51,5 @@ Erion Ismajli [@ErionIsmajli](https://www.linkedin.com/in/erion-ismajli/)
 
 <!-- Markdown link & img dfn's -->
 [npm-image]: https://img.shields.io/npm/v/datadog-metrics.svg?style=flat-square
-[npm-url]: https://npmjs.org/package/datadog-metrics
+[npm-url]: https://npmjs.org/
 [npm-downloads]: https://img.shields.io/npm/dm/datadog-metrics.svg?style=flat-square
