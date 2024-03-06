@@ -1,8 +1,12 @@
 # Product Name
 > MealPath is an order management system for italian style pizza and not only
 
-[![10.2.4][npm-image]][https://www.npmjs.com/]
 [![.NET 6](https://img.shields.io/badge/.NET-6-512BD4.svg)](https://dotnet.microsoft.com/)
+[![React 18](https://img.shields.io/badge/React-18-61DAFB.svg)](https://reactjs.org/)
+[![Node.js 20.11.x](https://img.shields.io/badge/Node.js-20.11.x-339933.svg)](https://nodejs.org/)
+[![npm 10.2.x](https://img.shields.io/badge/npm-10.2.x-CB3837.svg)](https://www.npmjs.com/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-Latest-47A248.svg)](https://www.mongodb.com/)
+[![SQL Server](https://img.shields.io/badge/SQL_Server-Latest-CC2927.svg)](https://www.microsoft.com/en-us/sql-server)
 
 
 MealPath is a faculty course project, it is built as an online pizza ordering web app, with different roles for content management.
@@ -48,8 +52,3 @@ To be able to run this project you should have these technologies installed on y
 
 Arber Zeka – [@ArberZeka](https://www.linkedin.com/in/arber-zeka-742452220/) 
 Erion Ismajli [@ErionIsmajli](https://www.linkedin.com/in/erion-ismajli/)
-
-<!-- Markdown link & img dfn's -->
-[npm-image]: https://img.shields.io/npm/v/datadog-metrics.svg?style=flat-square
-[npm-url]: https://npmjs.org/
-[npm-downloads]: https://img.shields.io/npm/dm/datadog-metrics.svg?style=flat-square
